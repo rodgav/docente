@@ -21,6 +21,10 @@ abstract class Routes {
   static String qualifications(String idStudent) =>
       '$students/qualifications/$idStudent';
   static const newAssistance = _Paths.newAssistance;
+  static const newTask = _Paths.newTask;
+
+  static String docenteThen(String afterSuccessDocente) =>
+      '$home?then=${Uri.encodeQueryComponent(afterSuccessDocente)}';
 }
 
 abstract class _Paths {
@@ -32,4 +36,5 @@ abstract class _Paths {
   static const assistances = '/assistances/:idStudent';
   static const qualifications = '/qualifications/:idStudent';
   static const newAssistance = '/newAssistance';
+  static const newTask = '/newTask';
 }

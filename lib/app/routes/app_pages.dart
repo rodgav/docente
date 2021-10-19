@@ -9,6 +9,8 @@ import 'package:docente/app/modules/login/login_binding.dart';
 import 'package:docente/app/modules/login/login_view.dart';
 import 'package:docente/app/modules/new_assistance/new_assistance_binding.dart';
 import 'package:docente/app/modules/new_assistance/new_assistance_view.dart';
+import 'package:docente/app/modules/new_task/new_task_binding.dart';
+import 'package:docente/app/modules/new_task/new_task_view.dart';
 import 'package:docente/app/modules/qualifications/qualifications_binding.dart';
 import 'package:docente/app/modules/qualifications/qualifications_view.dart';
 import 'package:docente/app/modules/root/root_binding.dart';
@@ -70,9 +72,17 @@ class AppPages {
                     ]),
               ]),
           GetPage(
+              preventDuplicates: true,
+              middlewares: [EnsureDocenteMiddleware()],
               name: _Paths.newAssistance,
               page: () => NewAssistancePage(),
-              binding: NewAssistanceBinding())
+              binding: NewAssistanceBinding()),
+          GetPage(
+              preventDuplicates: true,
+              middlewares: [EnsureDocenteMiddleware()],
+              name: _Paths.newTask,
+              page: () => NewTaskPage(),
+              binding: NewTaskBinding())
         ])
   ];
 }

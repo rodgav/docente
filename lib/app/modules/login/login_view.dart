@@ -52,7 +52,7 @@ class LoginPage extends StatelessWidget {
                               fontSize: 18, fontWeight: FontWeight.bold),
                         ),
                       ),
-                    ),
+                    ), const SizedBox(height: 2),
                     Center(
                       child: SizedBox(
                           width: web ? size.width * 0.5 : size.width * 0.9,
@@ -68,7 +68,11 @@ class LoginPage extends StatelessWidget {
                                 focusedBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(5),
                                     borderSide:
-                                        const BorderSide(color: Colors.blue))),
+                                        const BorderSide(color: Colors.blue)),
+                                errorBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(5),
+                                    borderSide:
+                                        const BorderSide(color: Colors.red))),
                           )),
                     ),
                     const SizedBox(height: 10),
@@ -82,6 +86,7 @@ class LoginPage extends StatelessWidget {
                         ),
                       ),
                     ),
+                    const SizedBox(height: 2),
                     Center(
                       child: SizedBox(
                           width: web ? size.width * 0.5 : size.width * 0.9,
@@ -98,13 +103,18 @@ class LoginPage extends StatelessWidget {
                                 focusedBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(5),
                                     borderSide:
-                                        const BorderSide(color: Colors.blue))),
+                                        const BorderSide(color: Colors.blue)),
+                                errorBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(5),
+                                    borderSide:
+                                        const BorderSide(color: Colors.red))),
                           )),
                     ),
                     const SizedBox(height: 20),
                     Center(
                       child: ElevatedButton(
-                          onPressed: logic.login, child:const Text('Iniciar sesión')),
+                          onPressed: logic.login,
+                          child: const Text('Iniciar sesión')),
                     ),
                     const SizedBox(height: 40),
                     Center(

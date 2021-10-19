@@ -3,12 +3,27 @@ import 'package:docente/app/data/services/auth_service.dart';
 import 'package:docente/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class LoginLogic extends GetxController {
   final _dataRepository = Get.find<DataRepository>();
   final formKey = GlobalKey<FormState>();
   final TextEditingController emailCtrl = TextEditingController();
   final TextEditingController passCtrl = TextEditingController();
+
+  @override
+  void onReady() {
+    final date = DateTime.parse('2021-10-19 14:45:32');
+    debugPrint('date $date');
+    final dayWeek = DateFormat('EEEE','es_ES').format(date);
+    final day = DateFormat('d','es_ES').format(date);
+    final month = DateFormat('MMMM','es_ES').format(date);
+    final year = DateFormat('y','es_ES').format(date);
+    final hour = DateFormat('Hms','es_ES').format(date);
+
+    debugPrint('dateFormat $dayWeek $day $month $year $hour');
+    super.onReady();
+  }
 
   String? validateEmail(String? value) {
     Pattern pattern =
@@ -26,7 +41,7 @@ class LoginLogic extends GetxController {
     if (formKey.currentState!.validate()) {
       if (!AuthService.to.isLoggedIn) {
         final session = await _dataRepository.accountCreateSession(
-          //email: 'bankenro.myhope@gmail.com', password: '31en02fe24ma');
+            //email: 'bankenro.myhope@gmail.com', password: '31en02fe24ma');
             email: emailCtrl.text.trim(),
             password: passCtrl.text.trim());
         if (session != null) {

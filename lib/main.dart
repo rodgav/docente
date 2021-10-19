@@ -6,11 +6,14 @@ import 'package:docente/utils/dependency_injection.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:intl/intl.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   DependencyInjection.init();
   await GetStorage.init();
+  await initializeDateFormatting('es_ES');
   runApp(const MyApp());
 }
 

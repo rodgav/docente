@@ -13,6 +13,18 @@ class EnsureAuthMiddleware extends GetMiddleware {
   }
 }
 
+class EnsureDocenteMiddleware extends GetMiddleware {
+  @override
+  Future<GetNavConfig?> redirectDelegate(GetNavConfig route) async {
+    final userId = AuthService.to.userId!;
+    if (!(userId == '616c934cf3ebb')) {
+      final newRoute = Routes.docenteThen(route.location!);
+      return GetNavConfig.fromRoute(newRoute);
+    }
+    return await super.redirectDelegate(route);
+  }
+}
+
 class EnsureNotAuthMiddleware extends GetMiddleware {
   @override
   Future<GetNavConfig?> redirectDelegate(GetNavConfig route) async {
