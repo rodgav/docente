@@ -1,17 +1,86 @@
+import 'package:appwrite/models.dart';
+import 'package:docente/app/data/repositorys/data_repository.dart';
+import 'package:docente/app/data/services/auth_service.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class NewTaskLogic extends GetxController {
+  final _dataRepository = Get.find<DataRepository>();
   final grades = ['6to B', '6to A', '5to', '4to', '3ero', '2do', '1ero'];
+  final formKey = GlobalKey<FormState>();
+  DateTime selectedDate = DateTime.now();
+  TimeOfDay selectedHour = TimeOfDay.now();
+  final TextEditingController titleCtrl = TextEditingController();
+  final TextEditingController descCtrl = TextEditingController();
+  DocumentList? _tasks;
   String? _selectGrade;
 
   String? get selectGrade => _selectGrade;
+
+  DocumentList? get tasks => _tasks;
+
+  @override
+  void onReady() {
+    _getTasks();
+    super.onReady();
+  }
 
   void gradeSelect(String value) {
     _selectGrade = value;
     update(['grade']);
   }
 
+  void toBack() {
+    Get.rootDelegate.popRoute();
+  }
+
+  String? isNotEmpty(String? text) {
+    if (text != null) if (text.isNotEmpty) return null;
+    return 'Ingrese su contraseña';
+  }
+
+  void _getTasks() async {
+    _tasks = await _dataRepository.getTasks();
+    update(['tasks']);
+  }
+
+  void createNewTask() async {
+    if (formKey.currentState!.validate()) {
+      if (selectGrade != null) {
+        if (AuthService.to.userId != null) {
+          if (AuthService.to.userId == '616c934cf3ebb') {
+            final task = await _dataRepository.createTask(map: {
+              'title': titleCtrl.text,
+              'description': descCtrl.text,
+              'grade': selectGrade,
+              'date': DateTime.now().toString(),
+              'dateEnd':
+                  '${selectedDate.year}-${selectedDate.month}-${selectedDate.day} '
+                      '${selectedHour.hour}:${selectedHour.minute.toString().length == 1 ? '0' + selectedHour.minute.toString() : selectedHour.minute.toString()}:00'
+            });
+            titleCtrl.clear();
+            descCtrl.clear();
+            if (tasks != null) {
+              _tasks!.documents.add(task);
+            } else {
+              _tasks = DocumentList(sum: 1, documents: [task]);
+            }
+            update(['tasks']);
+            toBack();
+          } else {
+            Get.snackbar(
+                'ERROR', 'No tienes permisos para realizar esta acción');
+          }
+        } else {
+          Get.snackbar('ERROR', 'No tienes permisos para realizar esta acción');
+        }
+      } else {
+        Get.snackbar('ERROR', 'Seleccione un grado');
+      }
+    }
+  }
 
   void newTask() {
     Get.dialog(Scaffold(
@@ -24,18 +93,42 @@ class NewTaskLogic extends GetxController {
           child: SingleChildScrollView(
             physics: const BouncingScrollPhysics(),
             child: Form(
+              key: formKey,
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  Stack(
+                    children: [
+                      const Center(
+                        child: Text(
+                          'Nueva tarea',
+                          style: TextStyle(
+                              fontSize: 24, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      Positioned(
+                        top: 0,
+                        right: 0,
+                        bottom: 0,
+                        child: MouseRegion(
+                          cursor: SystemMouseCursors.click,
+                          child: GestureDetector(
+                              child: const Icon(Icons.close, color: Colors.red),
+                              onTap: toBack),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 20),
                   const Text(
                     'Tìtulo',
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 2),
                   TextFormField(
-                    //controller: logic.passCtrl,
-                    //validator: (value) => logic.isNotEmpty(value),
+                    controller: titleCtrl,
+                    validator: (value) => isNotEmpty(value),
                     obscureText: true,
                     decoration: InputDecoration(
                         hintText: 'Tìtulo',
@@ -57,8 +150,8 @@ class NewTaskLogic extends GetxController {
                   const SizedBox(height: 2),
                   TextFormField(
                     maxLines: 2,
-                    //controller: logic.passCtrl,
-                    //validator: (value) => logic.isNotEmpty(value),
+                    controller: descCtrl,
+                    validator: (value) => isNotEmpty(value),
                     decoration: InputDecoration(
                         hintText: 'Descripciòn',
                         enabledBorder: OutlineInputBorder(
@@ -86,7 +179,7 @@ class NewTaskLogic extends GetxController {
                               borderRadius: BorderRadius.circular(5)),
                           padding: const EdgeInsets.symmetric(horizontal: 15),
                           child: DropdownButton<String>(
-                            isExpanded:true,
+                            isExpanded: true,
                             value: selectGrade,
                             hint: const Text('Grado'),
                             underline: const SizedBox(),
@@ -98,13 +191,235 @@ class NewTaskLogic extends GetxController {
                           ),
                         );
                       }),
+                  const SizedBox(height: 10),
+                  const Text(
+                    'Fecha de entrega',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 2),
+                  GetBuilder<NewTaskLogic>(
+                      id: 'date',
+                      builder: (_) {
+                        final date = _.selectedDate;
+                        return MouseRegion(
+                          cursor: SystemMouseCursors.click,
+                          child: GestureDetector(
+                            onTap: selectDate,
+                            child: Container(
+                                width: double.infinity,
+                                padding: const EdgeInsets.all(5),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(5),
+                                    border: Border.all(color: Colors.black)),
+                                height: 50,
+                                child: Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                        '${date.year}/${date.month}/${date.day}'))),
+                          ),
+                        );
+                      }),
+                  const SizedBox(height: 10),
+                  const Text(
+                    'Hora de entrega',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 2),
+                  GetBuilder<NewTaskLogic>(
+                      id: 'hour',
+                      builder: (_) {
+                        final hour = _.selectedHour;
+                        return MouseRegion(
+                          cursor: SystemMouseCursors.click,
+                          child: GestureDetector(
+                            onTap: selectHour,
+                            child: Container(
+                                width: double.infinity,
+                                padding: const EdgeInsets.all(5),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(5),
+                                    border: Border.all(color: Colors.black)),
+                                height: 50,
+                                child: Align(
+                                    alignment: Alignment.centerLeft,
+                                    child:
+                                        Text('${hour.hour}:${hour.minute}'))),
+                          ),
+                        );
+                      }),
                   const SizedBox(height: 20),
                   Center(
                     child: ElevatedButton(
-                        onPressed: () => null, child: const Text('Guardar')),
-                  ), const SizedBox(height: 20),
+                        onPressed: createNewTask, child: const Text('Guardar')),
+                  ),
+                  const SizedBox(height: 20),
                 ],
               ),
+            ),
+          ),
+        ),
+      ),
+    ));
+  }
+
+  void selectDate() async {
+    final picked = await showDatePicker(
+        context: Get.context!,
+        initialDate: selectedDate,
+        firstDate: DateTime.now(),
+        lastDate: DateTime(selectedDate.year + 5));
+    if (picked != null) {
+      selectedDate = picked;
+      update(['date']);
+    }
+  }
+
+  void selectHour() async {
+    final picked = await showTimePicker(
+        context: Get.context!, initialTime: TimeOfDay.now());
+    if (picked != null) {
+      selectedHour = picked;
+      update(['hour']);
+    }
+  }
+
+  void dialogTask(Document document) {
+    final date = DateTime.parse(document.data['date']);
+    final dateEnd = DateTime.parse(document.data['dateEnd']);
+    final dayWeek = DateFormat('EEEE', 'es_ES').format(date);
+    final day = DateFormat('d', 'es_ES').format(date);
+    final month = DateFormat('MMMM', 'es_ES').format(date);
+    final year = DateFormat('y', 'es_ES').format(date);
+    final hour = DateFormat('Hms', 'es_ES').format(date);
+    final dayWeekE = DateFormat('EEEE', 'es_ES').format(dateEnd);
+    final dayE = DateFormat('d', 'es_ES').format(dateEnd);
+    final monthE = DateFormat('MMMM', 'es_ES').format(dateEnd);
+    final yearE = DateFormat('y', 'es_ES').format(dateEnd);
+    final hourE = DateFormat('Hms', 'es_ES').format(dateEnd);
+    Get.dialog(Scaffold(
+      backgroundColor: Colors.transparent,
+      body: Center(
+        child: Container(
+          width: 400,
+          decoration: const BoxDecoration(color: Colors.white),
+          padding: const EdgeInsets.only(top: 10, right: 10, left: 10),
+          child: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Stack(
+                  children: [
+                    const Center(
+                      child: Text(
+                        'Detalles tarea',
+                        style: TextStyle(
+                            fontSize: 24, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    Positioned(
+                      top: 0,
+                      right: 0,
+                      bottom: 0,
+                      child: MouseRegion(
+                        cursor: SystemMouseCursors.click,
+                        child: GestureDetector(
+                            child: const Icon(Icons.close, color: Colors.red),
+                            onTap: toBack),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 20),
+                const Text(
+                  'Tìtulo',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 2),
+                Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.all(5),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        border: Border.all(color: Colors.black)),
+                    height: 50,
+                    child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text('${document.data['title']}'))),
+                const SizedBox(height: 10),
+                const Text(
+                  'Descripciòn',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 2),
+                Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.all(5),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        border: Border.all(color: Colors.black)),
+                    height: 50,
+                    child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text('${document.data['description']}'))),
+                const SizedBox(height: 10),
+                const Text(
+                  'Grado',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 2),
+                Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.all(5),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        border: Border.all(color: Colors.black)),
+                    height: 50,
+                    child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text('${document.data['grade']}'))),
+                const SizedBox(height: 10),
+                const Text(
+                  'Fecha de creación',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 2),
+                Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.all(5),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        border: Border.all(color: Colors.black)),
+                    height: 50,
+                    child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                            '$dayWeek $day de $month del $year a las $hour'))),
+                const SizedBox(height: 10),
+                const Text(
+                  'Fecha de entrega',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 2),
+                Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.all(5),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        border: Border.all(color: Colors.black)),
+                    height: 50,
+                    child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                            '$dayWeekE $dayE de $monthE del $yearE a las $hourE'))),
+                const SizedBox(height: 20),
+                Center(
+                  child: ElevatedButton(
+                      onPressed: toBack, child: const Text('Aceptar')),
+                ),
+                const SizedBox(height: 20),
+              ],
             ),
           ),
         ),

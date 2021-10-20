@@ -34,98 +34,136 @@ class NewTaskPage extends StatelessWidget {
                     icon: const Icon(Icons.add),
                     label: const Text('Nueva tarea'))
               ],
-            ),const SizedBox(),
+            ),
+            const SizedBox(),
             const Divider(),
             const SizedBox(height: 10),
-            Expanded(
-              child: LayoutBuilder(builder: (context, constaints) {
-                final count = constaints.maxWidth ~/ tileWidth;
-                return GridView.builder(
-                  physics: const BouncingScrollPhysics(),
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: count,
-                      childAspectRatio: tileHeight / tileWidth,
-                      crossAxisSpacing: spacing,
-                      mainAxisSpacing: spacing),
-                  itemBuilder: (BuildContext context, int index) {
-                    final date = DateTime.parse('2021-10-19 14:45:32');
-                    final dayWeek = DateFormat('EEEE', 'es_ES').format(date);
-                    final day = DateFormat('d', 'es_ES').format(date);
-                    final month = DateFormat('MMMM', 'es_ES').format(date);
-                    final year = DateFormat('y', 'es_ES').format(date);
-                    final hour = DateFormat('Hms', 'es_ES').format(date);
-                    return GestureDetector(
-                      child: Container(
-                        width: tileWidth,
-                        height: tileHeight,
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            border: Border.all(color: Colors.grey),
-                            borderRadius: BorderRadius.circular(10)),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              width: tileWidth,
-                              height: tileHeight * 0.2,
-                              decoration: const BoxDecoration(
-                                  color: Colors.blue,
-                                  borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(10),
-                                      topRight: Radius.circular(10))),
-                              child: const Center(
-                                child: Text('1ero B',
-                                    style: TextStyle(color: Colors.white)),
-                              ),
-                            ),
-                            SizedBox(
-                              width: tileWidth,
-                              height: tileHeight * 0.7,
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 5),
-                                child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    RichText(textAlign: TextAlign.center,
-                                        overflow: TextOverflow.ellipsis,
-                                        text: TextSpan(children: [
-                                          TextSpan(
-                                              text: '$day\n',
-                                              style: const TextStyle(
-                                                  fontSize: 28,
-                                                  fontWeight: FontWeight.bold)),
-                                          TextSpan(
-                                              text: '$dayWeek\n',
-                                              style: const TextStyle(
-                                                  fontSize: 20,
-                                                  fontWeight: FontWeight.bold)),
-                                          TextSpan(text: '$month $year',
-                                              style: const TextStyle(
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeight.bold)),
-                                        ])),
-                                    Center(
-                                        child: ElevatedButton(
-                                            onPressed: () => null,
-                                            child: const Text('Ver')))
-                                  ],
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                      onTap: () => null,
-                    );
-                  },
-                  itemCount: 50,
-                );
-              }),
-            )
+            GetBuilder<NewTaskLogic>(
+                id: 'tasks',
+                builder: (_) {
+                  final tasks = _.tasks;
+                  return Expanded(
+                    child: tasks != null
+                        ? LayoutBuilder(builder: (context, constaints) {
+                            final count = constaints.maxWidth ~/ tileWidth;
+                            return GridView.builder(
+                              physics: const BouncingScrollPhysics(),
+                              gridDelegate:
+                                  SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: count,
+                                      childAspectRatio: tileHeight / tileWidth,
+                                      crossAxisSpacing: spacing,
+                                      mainAxisSpacing: spacing),
+                              itemBuilder: (BuildContext context, int index) {
+                                final date = DateTime.parse(
+                                    tasks.documents[index].data['date']);
+                                final dayWeek =
+                                    DateFormat('EEEE', 'es_ES').format(date);
+                                final day =
+                                    DateFormat('d', 'es_ES').format(date);
+                                final month =
+                                    DateFormat('MMMM', 'es_ES').format(date);
+                                final year =
+                                    DateFormat('y', 'es_ES').format(date);
+                                final hour =
+                                    DateFormat('Hms', 'es_ES').format(date);
+                                return GestureDetector(
+                                  child: Container(
+                                    width: tileWidth,
+                                    height: tileHeight,
+                                    decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        border: Border.all(color: Colors.grey),
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Container(
+                                          width: double.infinity,
+                                          height: tileHeight * 0.2,
+                                          decoration: const BoxDecoration(
+                                              color: Colors.blue,
+                                              borderRadius: BorderRadius.only(
+                                                  topLeft: Radius.circular(10),
+                                                  topRight:
+                                                      Radius.circular(10))),
+                                          child: Center(
+                                            child: Text(
+                                                tasks.documents[index]
+                                                    .data['grade']
+                                                    .toString(),
+                                                style: const TextStyle(
+                                                    color: Colors.white)),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: tileWidth,
+                                          height: tileHeight * 0.7,
+                                          child: Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 5),
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceAround,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: [
+                                                RichText(
+                                                    textAlign: TextAlign.center,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    text: TextSpan(children: [
+                                                      TextSpan(
+                                                          text: '$day\n',
+                                                          style: const TextStyle(
+                                                              fontSize: 28,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold)),
+                                                      TextSpan(
+                                                          text: '$dayWeek\n',
+                                                          style: const TextStyle(
+                                                              fontSize: 20,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold)),
+                                                      TextSpan(
+                                                          text: '$month $year',
+                                                          style: const TextStyle(
+                                                              fontSize: 12,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold)),
+                                                    ])),
+                                                Center(
+                                                    child: ElevatedButton(
+                                                        onPressed: () =>
+                                                            logic.dialogTask(
+                                                                tasks.documents[
+                                                                    index]),
+                                                        child:
+                                                            const Text('Ver')))
+                                              ],
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                  onTap: () => null,
+                                );
+                              },
+                              itemCount: tasks.documents.length,
+                            );
+                          })
+                        : const Center(
+                            child: Text('Tareas no encontradas'),
+                          ),
+                  );
+                })
           ],
         ),
       ),

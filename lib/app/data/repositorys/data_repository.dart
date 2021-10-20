@@ -35,4 +35,12 @@ class DataRepository {
 
   Future<DocumentList?> getAssitances({required String idStudent}) =>
       _dataProvider.getAssitances(idStudent: idStudent);
+
+  Future<Document> createTask({required Map<dynamic, dynamic> map}) =>
+      _dataProvider.createTask(map: map);
+
+  Future<DocumentList?> getTasks() => _dataProvider.getTasks();
+
+  Future<DocumentList?> getTasksG({required String grade}) =>
+      _dataProvider.getTasksG(grade: grade);
 }

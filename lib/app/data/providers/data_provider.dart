@@ -111,4 +111,39 @@ class DataProvider {
     }
     return null;
   }
+
+  Future<Document> createTask(
+      {required Map<dynamic, dynamic> map}) async {
+    final database = Database(_client);
+    final result = await database
+        .createDocument(collectionId: '616f7199879d8', data: map, read: ['*']);
+    return result;
+  }
+
+  Future<DocumentList?> getTasks() async {
+    final database = Database(_client);
+    final result = await database.listDocuments(
+        collectionId: '616f7199879d8',
+        orderField: 'date',
+        orderCast: 'date',
+        orderType: 'ASC');
+    if (result.documents.isNotEmpty) {
+      return result;
+    }
+    return null;
+  }
+
+  Future<DocumentList?> getTasksG({required String grade}) async {
+    final database = Database(_client);
+    final result = await database.listDocuments(
+        collectionId: '616f7199879d8',
+        filters: ['grade=$grade'],
+        orderField: 'date',
+        orderCast: 'date',
+        orderType: 'ASC');
+    if (result.documents.isNotEmpty) {
+      return result;
+    }
+    return null;
+  }
 }

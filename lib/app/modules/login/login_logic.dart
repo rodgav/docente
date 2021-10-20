@@ -11,20 +11,6 @@ class LoginLogic extends GetxController {
   final TextEditingController emailCtrl = TextEditingController();
   final TextEditingController passCtrl = TextEditingController();
 
-  @override
-  void onReady() {
-    final date = DateTime.parse('2021-10-19 14:45:32');
-    debugPrint('date $date');
-    final dayWeek = DateFormat('EEEE','es_ES').format(date);
-    final day = DateFormat('d','es_ES').format(date);
-    final month = DateFormat('MMMM','es_ES').format(date);
-    final year = DateFormat('y','es_ES').format(date);
-    final hour = DateFormat('Hms','es_ES').format(date);
-
-    debugPrint('dateFormat $dayWeek $day $month $year $hour');
-    super.onReady();
-  }
-
   String? validateEmail(String? value) {
     Pattern pattern =
         r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
