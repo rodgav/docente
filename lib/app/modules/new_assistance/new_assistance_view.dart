@@ -56,7 +56,7 @@ class NewAssistancePage extends StatelessWidget {
                                 children: [
                                   IconButton(
                                       onPressed: () => logic.createAssitance(
-                                          students.documents[index].$id,
+                                          students.documents[index],
                                           'falto'),
                                       icon: const Icon(
                                         Icons.close_rounded,
@@ -64,7 +64,7 @@ class NewAssistancePage extends StatelessWidget {
                                       )),
                                   IconButton(
                                       onPressed: () => logic.createAssitance(
-                                          students.documents[index].$id,
+                                          students.documents[index],
                                           'justificado'),
                                       icon: const Icon(
                                         Icons.lock_clock,
@@ -72,7 +72,7 @@ class NewAssistancePage extends StatelessWidget {
                                       )),
                                   IconButton(
                                       onPressed: () => logic.createAssitance(
-                                          students.documents[index].$id,
+                                          students.documents[index],
                                           'presente'),
                                       icon: const Icon(
                                         Icons.check_circle_outline,

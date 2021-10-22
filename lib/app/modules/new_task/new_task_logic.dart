@@ -1,6 +1,10 @@
+import 'dart:convert';
+import 'dart:typed_data';
+
 import 'package:appwrite/models.dart';
 import 'package:docente/app/data/repositorys/data_repository.dart';
 import 'package:docente/app/data/services/auth_service.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -16,6 +20,8 @@ class NewTaskLogic extends GetxController {
   final TextEditingController descCtrl = TextEditingController();
   DocumentList? _tasks;
   String? _selectGrade;
+  Uint8List? _bytes;
+  String _nameFile = '';
 
   String? get selectGrade => _selectGrade;
 
@@ -46,29 +52,61 @@ class NewTaskLogic extends GetxController {
     update(['tasks']);
   }
 
+  void _filePicker() async {
+    final pdfPicked = await FilePicker.platform.pickFiles(
+        type: FileType.custom, allowedExtensions: ['pdf'], withData: true);
+    if (pdfPicked != null) {
+      _bytes = pdfPicked.files.single.bytes!;
+      //_base64PDF = base64Encode(bytes);
+      _nameFile = pdfPicked.files.single.name;
+      update(['picked']);
+    }
+  }
+
+  void _snackBar(Color color, String title, String body) {
+    Get.snackbar(
+      title,
+      body,
+      colorText: color,
+      snackPosition: SnackPosition.BOTTOM,
+      isDismissible: true,
+      dismissDirection: SnackDismissDirection.HORIZONTAL,
+      forwardAnimationCurve: Curves.easeOutBack,
+      margin: const EdgeInsets.all(15),
+    );
+  }
+
   void createNewTask() async {
     if (formKey.currentState!.validate()) {
       if (selectGrade != null) {
         if (AuthService.to.userId != null) {
           if (AuthService.to.userId == '616c934cf3ebb') {
-            final task = await _dataRepository.createTask(map: {
-              'title': titleCtrl.text,
-              'description': descCtrl.text,
-              'grade': selectGrade,
-              'date': DateTime.now().toString(),
-              'dateEnd':
-                  '${selectedDate.year}-${selectedDate.month}-${selectedDate.day} '
-                      '${selectedHour.hour}:${selectedHour.minute.toString().length == 1 ? '0' + selectedHour.minute.toString() : selectedHour.minute.toString()}:00'
-            });
-            titleCtrl.clear();
-            descCtrl.clear();
-            if (tasks != null) {
-              _tasks!.documents.add(task);
+            if (_bytes != null) {
+              final task = await _dataRepository.createTask(map: {
+                'title': titleCtrl.text,
+                'description': descCtrl.text,
+                'grade': selectGrade,
+                'date': DateTime.now().toString(),
+                'dateEnd':
+                    '${selectedDate.year}-${selectedDate.month}-${selectedDate.day} '
+                        '${selectedHour.hour}:${selectedHour.minute.toString().length == 1 ? '0' + selectedHour.minute.toString() : selectedHour.minute.toString()}:00'
+              }, uint8list: _bytes!, name: _nameFile);
+              if (task != null) {
+                titleCtrl.clear();
+                descCtrl.clear();
+                if (tasks != null) {
+                  _tasks!.documents.add(task);
+                } else {
+                  _tasks = DocumentList(sum: 1, documents: [task]);
+                }
+                update(['tasks']);
+                toBack();
+              } else {
+                Get.snackbar('ERROR', 'Al crear tarea');
+              }
             } else {
-              _tasks = DocumentList(sum: 1, documents: [task]);
+              Get.snackbar('ERROR', 'Seleccione un archivo PDF');
             }
-            update(['tasks']);
-            toBack();
           } else {
             Get.snackbar(
                 'ERROR', 'No tienes permisos para realizar esta acción');
@@ -244,6 +282,33 @@ class NewTaskLogic extends GetxController {
                                     alignment: Alignment.centerLeft,
                                     child:
                                         Text('${hour.hour}:${hour.minute}'))),
+                          ),
+                        );
+                      }),
+                  const SizedBox(height: 10),
+                  const Text(
+                    'Seleccione su PDF',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 2),
+                  GetBuilder<NewTaskLogic>(
+                      id: 'picked',
+                      builder: (_) {
+                        final name = _._nameFile;
+                        return MouseRegion(
+                          cursor: SystemMouseCursors.click,
+                          child: GestureDetector(
+                            onTap:selectHour,
+                            child: Container(
+                                width: double.infinity,
+                                padding: const EdgeInsets.all(5),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(5),
+                                    border: Border.all(color: Colors.black)),
+                                height: 50,
+                                child: Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(name))),
                           ),
                         );
                       }),

@@ -25,11 +25,13 @@ class NewAssistanceLogic extends GetxController {
     update(['students']);
   }
 
-  void createAssitance(String idStudent, String tipo) async {
+  void createAssitance(Document studentD, String tipo) async {
     if (AuthService.to.userId != null) {
       if (AuthService.to.userId == '616c934cf3ebb') {
         final student = await _dataRepository.createAssistance(map: {
-          'idStudent': idStudent,
+          'idStudent': studentD.$id,
+          'name': studentD.data['name'],
+          'grade': studentD.data['grade'],
           'assistance': tipo,
           'date': DateTime.now().toString()
         });

@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:appwrite/models.dart';
 import 'package:get/get.dart';
 import 'package:docente/app/data/providers/data_provider.dart';
@@ -36,8 +38,11 @@ class DataRepository {
   Future<DocumentList?> getAssitances({required String idStudent}) =>
       _dataProvider.getAssitances(idStudent: idStudent);
 
-  Future<Document> createTask({required Map<dynamic, dynamic> map}) =>
-      _dataProvider.createTask(map: map);
+  Future<Document?> createTask(
+          {required Map<dynamic, dynamic> map,
+          required Uint8List uint8list,
+          required String name}) =>
+      _dataProvider.createTask(map: map, uint8list: uint8list, name: name);
 
   Future<DocumentList?> getTasks() => _dataProvider.getTasks();
 
