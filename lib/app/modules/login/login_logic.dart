@@ -22,16 +22,21 @@ class LoginLogic extends GetxController {
     if (text != null) if (text.isNotEmpty) return null;
     return 'Ingrese su contraseña';
   }
-
+@override
+  void onReady() {
+  emailCtrl.text='bankenro.myhope@gmail.com';
+  passCtrl.text='31en02fe24ma';
+    super.onReady();
+  }
   void login() async {
     if (formKey.currentState!.validate()) {
       if (!AuthService.to.isLoggedIn) {
         final session = await _dataRepository.accountCreateSession(
-            //email: 'bankenro.myhope@gmail.com', password: '31en02fe24ma');
-            email: emailCtrl.text.trim(),
-            password: passCtrl.text.trim());
+            //email: 'bankenro.myhope@gmail.com', password: '31en02fe24ma',
+            email: emailCtrl.text.trim(), password: passCtrl.text.trim()
+        );
         if (session != null) {
-          AuthService.to.login(session.userId);
+          await AuthService.to.login(session.userId);
           Get.rootDelegate.offNamed(Routes.home);
         }
       } else {

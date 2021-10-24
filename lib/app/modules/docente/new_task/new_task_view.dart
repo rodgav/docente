@@ -1,4 +1,3 @@
-import 'dart:html';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -67,8 +66,7 @@ class NewTaskPage extends StatelessWidget {
                                     DateFormat('y', 'es_ES').format(date);
                                 final hour =
                                     DateFormat('Hms', 'es_ES').format(date);
-                                return GestureDetector(
-                                  child: Container(
+                                return  Container(
                                     width: tileWidth,
                                     height: tileHeight,
                                     decoration: BoxDecoration(
@@ -152,9 +150,7 @@ class NewTaskPage extends StatelessWidget {
                                         )
                                       ],
                                     ),
-                                  ),
-                                  onTap: () => null,
-                                );
+                                  );
                               },
                               itemCount: tasks.documents.length,
                             );

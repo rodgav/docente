@@ -35,7 +35,7 @@ class StudentsPage extends StatelessWidget {
             TextField(
               controller: logic.searchCtrl,
               decoration: InputDecoration(
-                  hintText: 'Apellidos',
+                  hintText: 'Apellidos y nombres',
                   suffixIcon: IconButton(
                       onPressed: () => logic.search(),
                       icon: const Icon(Icons.search, color: Colors.blue)),
@@ -162,7 +162,8 @@ class StudentsPage extends StatelessWidget {
                                             ],
                                           ),
                                         ),
-                                        onTap: () => logic.goTasks(student.$id),
+                                        onTap: () => logic.goTasks(
+                                            student.$id),
                                       ),
                                       GestureDetector(
                                         child: SizedBox(

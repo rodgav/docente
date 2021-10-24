@@ -3,14 +3,24 @@ import 'package:docente/app/modules/assistances/assistances_binding.dart';
 import 'package:docente/app/modules/assistances/assistances_view.dart';
 import 'package:docente/app/modules/detail_student/detail_student_binding.dart';
 import 'package:docente/app/modules/detail_student/detail_student_view.dart';
+import 'package:docente/app/modules/docente/edit_assistance/edit_assistance_binding.dart';
+import 'package:docente/app/modules/docente/edit_assistance/edit_assistance_view.dart';
+import 'package:docente/app/modules/docente/edit_quali_note/edit_quali_note_binding.dart';
+import 'package:docente/app/modules/docente/edit_quali_note/edit_quali_note_view.dart';
+import 'package:docente/app/modules/docente/edit_quali_task/edit_quali_task_binding.dart';
+import 'package:docente/app/modules/docente/edit_quali_task/edit_quali_task_view.dart';
+import 'package:docente/app/modules/docente/new_assistance/new_assistance_binding.dart';
+import 'package:docente/app/modules/docente/new_assistance/new_assistance_view.dart';
+import 'package:docente/app/modules/docente/new_quali_note/new_quali_note_binding.dart';
+import 'package:docente/app/modules/docente/new_quali_note/new_quali_note_view.dart';
+import 'package:docente/app/modules/docente/new_quali_task/new_quali_task_binding.dart';
+import 'package:docente/app/modules/docente/new_quali_task/new_quali_task_view.dart';
+import 'package:docente/app/modules/docente/new_task/new_task_binding.dart';
+import 'package:docente/app/modules/docente/new_task/new_task_view.dart';
 import 'package:docente/app/modules/home/home_binding.dart';
 import 'package:docente/app/modules/home/home_view.dart';
 import 'package:docente/app/modules/login/login_binding.dart';
 import 'package:docente/app/modules/login/login_view.dart';
-import 'package:docente/app/modules/new_assistance/new_assistance_binding.dart';
-import 'package:docente/app/modules/new_assistance/new_assistance_view.dart';
-import 'package:docente/app/modules/new_task/new_task_binding.dart';
-import 'package:docente/app/modules/new_task/new_task_view.dart';
 import 'package:docente/app/modules/qualifications/qualifications_binding.dart';
 import 'package:docente/app/modules/qualifications/qualifications_view.dart';
 import 'package:docente/app/modules/root/root_binding.dart';
@@ -80,9 +90,39 @@ class AppPages {
           GetPage(
               preventDuplicates: true,
               middlewares: [EnsureDocenteMiddleware()],
+              name: _Paths.editAssistance,
+              page: () => EditAssistancePage(),
+              binding: EditAssistanceBinding()),
+          GetPage(
+              preventDuplicates: true,
+              middlewares: [EnsureDocenteMiddleware()],
               name: _Paths.newTask,
               page: () => NewTaskPage(),
-              binding: NewTaskBinding())
+              binding: NewTaskBinding()),
+          GetPage(
+              preventDuplicates: true,
+              middlewares: [EnsureDocenteMiddleware()],
+              name: _Paths.newQualTasks,
+              page: () => NewQualiTaskPage(),
+              binding: NewQualiTaskBinding()),
+          GetPage(
+              preventDuplicates: true,
+              middlewares: [EnsureDocenteMiddleware()],
+              name: _Paths.newQualNotes,
+              page: () => NewQualiNotePage(),
+              binding: NewQualiNoteBinding()),
+          GetPage(
+              preventDuplicates: true,
+              middlewares: [EnsureDocenteMiddleware()],
+              name: _Paths.editQualTasks,
+              page: () => EditQualiTaskPage(),
+              binding: EditQualiTaskBinding()),
+          GetPage(
+              preventDuplicates: true,
+              middlewares: [EnsureDocenteMiddleware()],
+              name: _Paths.editQualNotes,
+              page: () => EditQualiNotePage(),
+              binding: EditQualiNoteBinding())
         ])
   ];
 }

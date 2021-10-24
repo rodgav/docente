@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:appwrite/models.dart';
@@ -7,6 +6,7 @@ import 'package:docente/app/data/services/auth_service.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
@@ -19,11 +19,11 @@ class NewTaskLogic extends GetxController {
   final TextEditingController titleCtrl = TextEditingController();
   final TextEditingController descCtrl = TextEditingController();
   DocumentList? _tasks;
-  String? _selectGrade;
+  String _selectGrade='';
   Uint8List? _bytes;
   String _nameFile = '';
 
-  String? get selectGrade => _selectGrade;
+  String get selectGrade => _selectGrade;
 
   DocumentList? get tasks => _tasks;
 
@@ -44,7 +44,7 @@ class NewTaskLogic extends GetxController {
 
   String? isNotEmpty(String? text) {
     if (text != null) if (text.isNotEmpty) return null;
-    return 'Ingrese su contraseña';
+    return 'Ingrese datos';
   }
 
   void _getTasks() async {
@@ -78,7 +78,7 @@ class NewTaskLogic extends GetxController {
 
   void createNewTask() async {
     if (formKey.currentState!.validate()) {
-      if (selectGrade != null) {
+      if (selectGrade != '') {
         if (AuthService.to.userId != null) {
           if (AuthService.to.userId == '616c934cf3ebb') {
             if (_bytes != null) {
@@ -160,16 +160,15 @@ class NewTaskLogic extends GetxController {
                   ),
                   const SizedBox(height: 20),
                   const Text(
-                    'Tìtulo',
+                    'Título',
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 2),
                   TextFormField(
                     controller: titleCtrl,
                     validator: (value) => isNotEmpty(value),
-                    obscureText: true,
                     decoration: InputDecoration(
-                        hintText: 'Tìtulo',
+                        hintText: 'Título',
                         enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(5),
                             borderSide: const BorderSide(color: Colors.black)),
@@ -298,7 +297,7 @@ class NewTaskLogic extends GetxController {
                         return MouseRegion(
                           cursor: SystemMouseCursors.click,
                           child: GestureDetector(
-                            onTap:selectHour,
+                            onTap: _filePicker,
                             child: Container(
                                 width: double.infinity,
                                 padding: const EdgeInsets.all(5),

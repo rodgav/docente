@@ -1,7 +1,6 @@
 import 'package:appwrite/models.dart';
 import 'package:docente/app/data/repositorys/data_repository.dart';
 import 'package:docente/app/data/services/auth_service.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class NewAssistanceLogic extends GetxController {
@@ -14,8 +13,8 @@ class NewAssistanceLogic extends GetxController {
 
   DocumentList? get students => _students;
 
-  void gradeSelect(String value) {
-    _selectGrade = value;
+  void gradeSelect(String grade) {
+    _selectGrade = grade;
     update(['grade']);
     _getStusG();
   }
@@ -35,9 +34,13 @@ class NewAssistanceLogic extends GetxController {
           'assistance': tipo,
           'date': DateTime.now().toString()
         });
-        _students!.documents
-            .removeWhere((element) => element.$id == student.data['idStudent']);
-        update(['students']);
+        if (student != null) {
+          _students!.documents.removeWhere(
+              (element) => element.$id == student.data['idStudent']);
+          update(['students']);
+        }else{
+          Get.snackbar('ERROR', 'No se pudo guardar o ya tiene una asistencia');
+        }
       } else {
         Get.snackbar('ERROR', 'No tienes permisos para realizar esta acción');
       }

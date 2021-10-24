@@ -233,6 +233,12 @@ class StudentsLogic extends GetxController {
     }
   }*/
 
+  @override
+  void onReady() {
+    searchCtrl.text = 'MAMANI MONZON ALDAIR BRANDON';
+    super.onReady();
+  }
+
   void search() async {
     _student = await _dataRepository.getStusN(
         name: searchCtrl.text.trim().toUpperCase());

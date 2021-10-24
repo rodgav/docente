@@ -32,7 +32,7 @@ class DataRepository {
   Future<DocumentList?> getStusG({required String grade}) =>
       _dataProvider.getStusG(grade: grade);
 
-  Future<Document> createAssistance({required Map<dynamic, dynamic> map}) =>
+  Future<Document?> createAssistance({required Map<dynamic, dynamic> map}) =>
       _dataProvider.createAssistance(map: map);
 
   Future<DocumentList?> getAssitances({required String idStudent}) =>
@@ -48,4 +48,26 @@ class DataRepository {
 
   Future<DocumentList?> getTasksG({required String grade}) =>
       _dataProvider.getTasksG(grade: grade);
+
+  Future<Document?> createTaskStudent({required Map<dynamic, dynamic> map}) =>
+      _dataProvider.createTaskStudent(map: map);
+
+  Future<Document?> getTaskStudent(
+          {required String idStudent, required String idTask}) =>
+      _dataProvider.getTaskStudent(idStudent: idStudent, idTask: idTask);
+
+  Future<DocumentList?> getTasksStudent(
+          {required String grade, required String idTask}) =>
+      _dataProvider.getTasksStudent(grade: grade, idTask: idTask);
+
+  Future<Document?> updaTasksStudent(
+          {required String id, required Map<dynamic, dynamic> map}) =>
+      _dataProvider.updaTasksStudent(id: id, map: map);
+
+  Future<DocumentList?> getAssistances({required String grade}) =>
+      _dataProvider.getAssistances(grade: grade);
+
+  Future<Document?> justifyAssistance(
+          {required String id, required Map<dynamic, dynamic> map}) =>
+      _dataProvider.justifyAssistance(id: id, map: map);
 }

@@ -5,6 +5,7 @@ import 'tasks_logic.dart';
 class TasksBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut(() => TasksLogic());
+    Get.create<TasksLogic>(() => TasksLogic(
+        Get.parameters['idStudent'] ?? ''));
   }
 }

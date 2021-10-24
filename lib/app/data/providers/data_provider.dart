@@ -90,12 +90,45 @@ class DataProvider {
     return null;
   }
 
-  Future<Document> createAssistance(
+  Future<Document?> createAssistance(
       {required Map<dynamic, dynamic> map}) async {
+    try {
+      final database = Database(_client);
+      final assistance = await _getAssistanceStudent(
+          idStudent: map['idStudent'], date: map['date']);
+      if (assistance == null) {
+        final result = await database.createDocument(
+            collectionId: '616cc4d112dc3', data: map, read: ['*']);
+        return result;
+      } else {
+        return null;
+      }
+    } catch (e) {
+      return null;
+    }
+  }
+
+  Future<Document?> _getAssistanceStudent(
+      {required String idStudent, required String date}) async {
     final database = Database(_client);
-    final result = await database
-        .createDocument(collectionId: '616cc4d112dc3', data: map, read: ['*']);
-    return result;
+    final result = await database.listDocuments(
+        collectionId: '616cc4d112dc3',
+        filters: ['idStudent=$idStudent'],
+        orderField: 'date',
+        orderCast: 'datetime',
+        orderType: 'DESC',
+        limit: 1);
+    if (result.documents.isNotEmpty) {
+      final dateNow = date.substring(0, 10);
+      final dateAss =
+          (result.documents[0].data['date'].toString()).substring(0, 10);
+      if (dateNow == dateAss) {
+        return result.documents[0];
+      } else {
+        return null;
+      }
+    }
+    return null;
   }
 
   Future<DocumentList?> getAssitances({required String idStudent}) async {
@@ -104,7 +137,7 @@ class DataProvider {
         collectionId: '616cc4d112dc3',
         filters: ['idStudent=$idStudent'],
         orderField: 'date',
-        orderCast: 'date',
+        orderCast: 'datetime',
         orderType: 'DESC');
     if (result.documents.isNotEmpty) {
       return result;
@@ -121,7 +154,7 @@ class DataProvider {
       final imageId = await _saveFile(uint8list: uint8list, name: name);
       if (imageId != null) {
         map.addAll({
-          'imageUrl':
+          'pdfURL':
               'http://appwrite.rsgmsolutions.com/v1/storage/files/$imageId/view?project=616c7e2d9137c'
         });
         final result = await database.createDocument(
@@ -153,8 +186,8 @@ class DataProvider {
     final result = await database.listDocuments(
         collectionId: '616f7199879d8',
         orderField: 'date',
-        orderCast: 'date',
-        orderType: 'ASC');
+        orderCast: 'datetime',
+        orderType: 'DESC');
     if (result.documents.isNotEmpty) {
       return result;
     }
@@ -167,11 +200,102 @@ class DataProvider {
         collectionId: '616f7199879d8',
         filters: ['grade=$grade'],
         orderField: 'date',
-        orderCast: 'date',
-        orderType: 'ASC');
+        orderCast: 'datetime',
+        orderType: 'DESC');
     if (result.documents.isNotEmpty) {
       return result;
     }
     return null;
+  }
+
+  Future<Document?> createTaskStudent(
+      {required Map<dynamic, dynamic> map}) async {
+    try {
+      final database = Database(_client);
+      final taskStudent = await getTaskStudent(
+          idStudent: map['idStudent'], idTask: map['idTask']);
+      if (taskStudent == null) {
+        final result = await database.createDocument(
+            collectionId: '617452e1bfdc0', data: map, read: ['*']);
+        return result;
+      } else {
+        return null;
+      }
+    } catch (e) {
+      return null;
+    }
+  }
+
+  Future<Document?> getTaskStudent(
+      {required String idStudent, required String idTask}) async {
+    try {
+      final database = Database(_client);
+      final result = await database.listDocuments(
+          collectionId: '617452e1bfdc0',
+          filters: ['idStudent=$idStudent', 'idTask=$idTask'],
+          limit: 1,
+          orderField: 'date',
+          orderCast: 'datetime',
+          orderType: 'DESC');
+      return result.documents[0];
+    } catch (e) {
+      return null;
+    }
+  }
+
+  Future<DocumentList?> getTasksStudent(
+      {required String grade, required String idTask}) async {
+    try {
+      final database = Database(_client);
+      final result = await database.listDocuments(
+          collectionId: '617452e1bfdc0',
+          filters: ['grade=$grade', 'idTask=$idTask'],
+          limit: 1,
+          orderField: 'date',
+          orderCast: 'datetime',
+          orderType: 'DESC');
+      return result;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  Future<Document?> updaTasksStudent(
+      {required String id, required Map<dynamic, dynamic> map}) async {
+    try {
+      final database = Database(_client);
+      final result = await database.updateDocument(
+          collectionId: '617452e1bfdc0', documentId: id, data: map);
+      return result;
+    } catch (e) {
+      debugPrint('erroe $e ');
+      return null;
+    }
+  }
+
+  Future<DocumentList?> getAssistances({required String grade}) async {
+    final database = Database(_client);
+    final result = await database.listDocuments(
+        collectionId: '616cc4d112dc3',
+        filters: ['grade=$grade'],
+        orderField: 'date',
+        orderCast: 'datetime',
+        orderType: 'DESC');
+    if (result.documents.isNotEmpty) {
+      return result;
+    }
+    return null;
+  }
+
+  Future<Document?> justifyAssistance(
+      {required String id, required Map<dynamic, dynamic> map}) async {
+    try {
+      final database = Database(_client);
+      final result = await database.updateDocument(
+          collectionId: '616cc4d112dc3', documentId: id, data: map);
+      return result;
+    } catch (e) {
+      return null;
+    }
   }
 }
