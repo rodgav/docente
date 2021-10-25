@@ -13,8 +13,6 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    final bool web = size.width > 800;
     return Scaffold(
         appBar: AppBar(
           leading: MouseRegion(
@@ -30,18 +28,9 @@ class HomePage extends StatelessWidget {
             ),
           ),
           actions: [
-            MouseRegion(
-              cursor: SystemMouseCursors.click,
-              child: GestureDetector(
-                child: Ink.image(
-                  image: const AssetImage('assets/images/logo.png'),
-                  width: 100,
-                  height: 100,
-                  fit: BoxFit.contain,
-                ),
-                onTap: logic.goHome,
-              ),
-            ),
+            IconButton(
+                onPressed: logic.close,
+                icon:const Icon(Icons.close, color: Colors.red))
           ],
           backgroundColor: Colors.white,
           title: Column(

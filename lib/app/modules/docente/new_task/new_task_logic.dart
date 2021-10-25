@@ -63,7 +63,7 @@ class NewTaskLogic extends GetxController {
     }
   }
 
-  void _snackBar(Color color, String title, String body) {
+  /*void _snackBar(Color color, String title, String body) {
     Get.snackbar(
       title,
       body,
@@ -74,7 +74,7 @@ class NewTaskLogic extends GetxController {
       forwardAnimationCurve: Curves.easeOutBack,
       margin: const EdgeInsets.all(15),
     );
-  }
+  }*/
 
   void createNewTask() async {
     if (formKey.currentState!.validate()) {

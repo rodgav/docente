@@ -13,9 +13,13 @@ class AuthService extends GetxService {
   String? get userId =>
       _encryptHelper.decrypt(_getStorage.read('userId') ?? '');
 
-  Future<void> login(String userId) async {
+  String? get sessionId =>
+      _encryptHelper.decrypt(_getStorage.read('sessionId') ?? '');
+
+  Future<void> login(String userId, String sessionId) async {
     try {
       await _getStorage.write('userId', _encryptHelper.encrypt(userId));
+      await _getStorage.write('sessionId', _encryptHelper.encrypt(sessionId));
       await _getStorage.write('login', true);
     } catch (e) {
       debugPrint('AuthService ocurrio un error $e');

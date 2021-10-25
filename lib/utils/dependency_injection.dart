@@ -9,9 +9,9 @@ class DependencyInjection {
   static void init() {
     Get.put<EncryptHelper>(EncryptHelper());
     Get.put<Client>(Client()
-        .setEndpoint('http://appwrite.rsgmsolutions.com/v1')
+        .setEndpoint('https://appwrite.rsgmsolutions.com/v1')
         .setProject('616c7e2d9137c')
-        .setSelfSigned(status: true));
+        .setSelfSigned(status: false));
 
     /*Get.put<LocalAuthProvider>(LocalAuthProvider());
     Get.put<LocalAuthRepository>(LocalAuthRepository());*/

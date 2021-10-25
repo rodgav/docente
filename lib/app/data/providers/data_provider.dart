@@ -38,6 +38,16 @@ class DataProvider {
     }
   }
 
+  Future<void> accountDeleteSession({required String idSession}) async {
+    Account account = Account(_client);
+    try {
+      final session = await account.deleteSession(sessionId: idSession);
+      debugPrint('session $session');
+    } catch (e) {
+      debugPrint('e $e');
+    }
+  }
+
   Future<Session?> accountCreateAnonymous() async {
     Account account = Account(_client);
     try {
@@ -155,7 +165,7 @@ class DataProvider {
       if (imageId != null) {
         map.addAll({
           'pdfURL':
-              'http://appwrite.rsgmsolutions.com/v1/storage/files/$imageId/view?project=616c7e2d9137c'
+              'https://appwrite.rsgmsolutions.com/v1/storage/files/$imageId/view?project=616c7e2d9137c'
         });
         final result = await database.createDocument(
             collectionId: '616f7199879d8', data: map, read: ['*']);

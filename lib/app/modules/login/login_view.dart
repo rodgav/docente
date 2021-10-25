@@ -132,7 +132,7 @@ class LoginPage extends StatelessWidget {
                     const SizedBox(height: 10),
                     Center(
                         child: ElevatedButton(
-                            onPressed: logic.loginA, child: Text('Anonimo'))),
+                            onPressed: logic.loginA, child: const Text('Anonimo'))),
                   ],
                 ),
               ),

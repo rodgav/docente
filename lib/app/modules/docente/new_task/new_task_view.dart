@@ -64,8 +64,8 @@ class NewTaskPage extends StatelessWidget {
                                     DateFormat('MMMM', 'es_ES').format(date);
                                 final year =
                                     DateFormat('y', 'es_ES').format(date);
-                                final hour =
-                                    DateFormat('Hms', 'es_ES').format(date);
+                                /*final hour =
+                                    DateFormat('Hms', 'es_ES').format(date);*/
                                 return  Container(
                                     width: tileWidth,
                                     height: tileHeight,

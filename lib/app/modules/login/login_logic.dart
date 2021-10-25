@@ -3,7 +3,6 @@ import 'package:docente/app/data/services/auth_service.dart';
 import 'package:docente/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 
 class LoginLogic extends GetxController {
   final _dataRepository = Get.find<DataRepository>();
@@ -22,21 +21,23 @@ class LoginLogic extends GetxController {
     if (text != null) if (text.isNotEmpty) return null;
     return 'Ingrese su contraseña';
   }
-@override
+
+  /*@override
   void onReady() {
-  emailCtrl.text='bankenro.myhope@gmail.com';
-  passCtrl.text='31en02fe24ma';
+    emailCtrl.text = 'bankenro.myhope@gmail.com';
+    passCtrl.text = '31en02fe24ma';
     super.onReady();
-  }
+  }*/
+
   void login() async {
     if (formKey.currentState!.validate()) {
       if (!AuthService.to.isLoggedIn) {
         final session = await _dataRepository.accountCreateSession(
-            //email: 'bankenro.myhope@gmail.com', password: '31en02fe24ma',
+          //email: 'bankenro.myhope@gmail.com', password: '31en02fe24ma',
             email: emailCtrl.text.trim(), password: passCtrl.text.trim()
         );
         if (session != null) {
-          await AuthService.to.login(session.userId);
+          await AuthService.to.login(session.userId,session.$id);
           Get.rootDelegate.offNamed(Routes.home);
         }
       } else {
@@ -49,7 +50,7 @@ class LoginLogic extends GetxController {
     if (!AuthService.to.isLoggedIn) {
       final session = await _dataRepository.accountCreateAnonymous();
       if (session != null) {
-        AuthService.to.login(session.userId);
+        await AuthService.to.login(session.userId,session.$id);
         Get.rootDelegate.offNamed(Routes.home);
       }
     } else {

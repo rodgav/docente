@@ -17,6 +17,9 @@ class DataRepository {
           {required String email, required String password}) =>
       _dataProvider.accountCreateSession(email: email, password: password);
 
+  Future<void> accountDeleteSession({required String idSession}) =>
+      _dataProvider.accountDeleteSession(idSession: idSession);
+
   Future<Session?> accountCreateAnonymous() =>
       _dataProvider.accountCreateAnonymous();
 

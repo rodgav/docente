@@ -1,6 +1,5 @@
 import 'package:appwrite/models.dart';
 import 'package:docente/app/data/repositorys/data_repository.dart';
-import 'package:docente/app/data/services/auth_service.dart';
 import 'package:docente/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -233,11 +232,11 @@ class StudentsLogic extends GetxController {
     }
   }*/
 
-  @override
+  /*@override
   void onReady() {
     searchCtrl.text = 'MAMANI MONZON ALDAIR BRANDON';
     super.onReady();
-  }
+  }*/
 
   void search() async {
     _student = await _dataRepository.getStusN(
