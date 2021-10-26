@@ -39,7 +39,7 @@ class EditAssistanceLogic extends GetxController {
               const Center(
                 child: Text(
                   'Justificar asistencia',
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  style: TextStyle(color: Colors.black,fontSize: 24, fontWeight: FontWeight.bold),
                 ),
               ),
               Positioned(
@@ -60,8 +60,9 @@ class EditAssistanceLogic extends GetxController {
               text: TextSpan(children: [
             const TextSpan(
                 text: 'Estudiante: ',
-                style: TextStyle(fontWeight: FontWeight.bold)),
-            TextSpan(text: document.data['name']),
+                style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold)),
+            TextSpan(text: document.data['name'],
+                style: const TextStyle(color: Colors.black)),
           ])),
           const SizedBox(height: 20),
           Center(

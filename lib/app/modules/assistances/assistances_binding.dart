@@ -5,7 +5,7 @@ import 'assistances_logic.dart';
 class AssistancesBinding extends Bindings {
   @override
   void dependencies() {
-    Get.create<AssistancesLogic>(
+    Get.lazyPut<AssistancesLogic>(
         () => AssistancesLogic(Get.parameters['idStudent'] ?? ''));
   }
 }

@@ -27,7 +27,7 @@ class NewTaskPage extends StatelessWidget {
               children: [
                 const Text('Tareas',
                     style:
-                        TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                        TextStyle(color: Colors.black,fontSize: 20, fontWeight: FontWeight.bold)),
                 ElevatedButton.icon(
                     onPressed: logic.newTask,
                     icon: const Icon(Icons.add),
@@ -116,21 +116,21 @@ class NewTaskPage extends StatelessWidget {
                                                     text: TextSpan(children: [
                                                       TextSpan(
                                                           text: '$day\n',
-                                                          style: const TextStyle(
+                                                          style: const TextStyle(color: Colors.black,
                                                               fontSize: 28,
                                                               fontWeight:
                                                                   FontWeight
                                                                       .bold)),
                                                       TextSpan(
                                                           text: '$dayWeek\n',
-                                                          style: const TextStyle(
+                                                          style: const TextStyle(color: Colors.black,
                                                               fontSize: 20,
                                                               fontWeight:
                                                                   FontWeight
                                                                       .bold)),
                                                       TextSpan(
                                                           text: '$month $year',
-                                                          style: const TextStyle(
+                                                          style: const TextStyle(color: Colors.black,
                                                               fontSize: 12,
                                                               fontWeight:
                                                                   FontWeight

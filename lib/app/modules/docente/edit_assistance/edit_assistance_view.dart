@@ -16,12 +16,12 @@ class EditAssistancePage extends StatelessWidget {
         children: [
           const Center(
             child: Text('Editar lista',
-                style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold)),
+                style: TextStyle(color: Colors.black,fontSize: 40, fontWeight: FontWeight.bold)),
           ),
           const SizedBox(height: 20),
           const Center(
             child: Text('RODOLFO SAMUEL GAVILAN MUÑOZ',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+                style: TextStyle(color: Colors.black,fontSize: 24, fontWeight: FontWeight.bold)),
           ),
           const Center(
               child: Text('docente - Computación', style: TextStyle())),
@@ -29,7 +29,7 @@ class EditAssistancePage extends StatelessWidget {
           const Padding(
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: Text('Grados',
-                  style: TextStyle(fontWeight: FontWeight.bold))),
+                  style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold))),
           const SizedBox(height: 5),
           GetBuilder<EditAssistanceLogic>(
               id: 'grade',
@@ -72,7 +72,7 @@ class EditAssistancePage extends StatelessWidget {
           const Padding(
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: Text('Estudiantes',
-                  style: TextStyle(fontWeight: FontWeight.bold))),
+                  style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold))),
           const SizedBox(height: 5),
           GetBuilder<EditAssistanceLogic>(
               id: 'assistances',

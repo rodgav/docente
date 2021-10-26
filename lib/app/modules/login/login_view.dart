@@ -31,7 +31,7 @@ class LoginPage extends StatelessWidget {
                     const Center(
                       child: Text(
                         'INICIO DE SESIÓN',
-                        style: TextStyle(
+                        style: TextStyle(color: Colors.black,
                             fontSize: 20, fontWeight: FontWeight.bold),
                       ),
                     ),
@@ -48,7 +48,7 @@ class LoginPage extends StatelessWidget {
                         width: web ? size.width * 0.5 : size.width * 0.9,
                         child: const Text(
                           'Correo',
-                          style: TextStyle(
+                          style: TextStyle(color: Colors.black,
                               fontSize: 18, fontWeight: FontWeight.bold),
                         ),
                       ),
@@ -81,7 +81,7 @@ class LoginPage extends StatelessWidget {
                         width: web ? size.width * 0.5 : size.width * 0.9,
                         child: const Text(
                           'Contraseña',
-                          style: TextStyle(
+                          style: TextStyle(color: Colors.black,
                               fontSize: 18, fontWeight: FontWeight.bold),
                         ),
                       ),
@@ -122,9 +122,10 @@ class LoginPage extends StatelessWidget {
                         text: const TextSpan(children: [
                           TextSpan(
                               text: '¿no tienes cuenta?\n',
-                              style: TextStyle(
+                              style: TextStyle(color: Colors.black,
                                   fontSize: 16, fontWeight: FontWeight.bold)),
-                          TextSpan(text: 'Ingresa como un usuario anonimo')
+                          TextSpan(text: 'Ingresa como un usuario anonimo',
+                              style: TextStyle(color: Colors.black))
                         ]),
                         textAlign: TextAlign.center,
                       ),

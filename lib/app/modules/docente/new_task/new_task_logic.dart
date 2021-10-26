@@ -141,7 +141,7 @@ class NewTaskLogic extends GetxController {
                       const Center(
                         child: Text(
                           'Nueva tarea',
-                          style: TextStyle(
+                          style: TextStyle(color: Colors.black,
                               fontSize: 24, fontWeight: FontWeight.bold),
                         ),
                       ),
@@ -161,7 +161,7 @@ class NewTaskLogic extends GetxController {
                   const SizedBox(height: 20),
                   const Text(
                     'Título',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    style: TextStyle(color: Colors.black,fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 2),
                   TextFormField(
@@ -182,7 +182,7 @@ class NewTaskLogic extends GetxController {
                   const SizedBox(height: 10),
                   const Text(
                     'Descripciòn',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    style: TextStyle(color: Colors.black,fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 2),
                   TextFormField(
@@ -204,7 +204,7 @@ class NewTaskLogic extends GetxController {
                   const SizedBox(height: 10),
                   const Text(
                     'Grado',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    style: TextStyle(color: Colors.black,fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 2),
                   GetBuilder<NewTaskLogic>(
@@ -231,7 +231,7 @@ class NewTaskLogic extends GetxController {
                   const SizedBox(height: 10),
                   const Text(
                     'Fecha de entrega',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    style: TextStyle(color: Colors.black,fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 2),
                   GetBuilder<NewTaskLogic>(
@@ -259,7 +259,7 @@ class NewTaskLogic extends GetxController {
                   const SizedBox(height: 10),
                   const Text(
                     'Hora de entrega',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    style: TextStyle(color: Colors.black,fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 2),
                   GetBuilder<NewTaskLogic>(
@@ -287,7 +287,7 @@ class NewTaskLogic extends GetxController {
                   const SizedBox(height: 10),
                   const Text(
                     'Seleccione su PDF',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    style: TextStyle(color: Colors.black,fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 2),
                   GetBuilder<NewTaskLogic>(
@@ -378,7 +378,7 @@ class NewTaskLogic extends GetxController {
                     const Center(
                       child: Text(
                         'Detalles tarea',
-                        style: TextStyle(
+                        style: TextStyle(color: Colors.black,
                             fontSize: 24, fontWeight: FontWeight.bold),
                       ),
                     ),
@@ -398,7 +398,7 @@ class NewTaskLogic extends GetxController {
                 const SizedBox(height: 20),
                 const Text(
                   'Tìtulo',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  style: TextStyle(color: Colors.black,fontSize: 18, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 2),
                 Container(
@@ -414,7 +414,7 @@ class NewTaskLogic extends GetxController {
                 const SizedBox(height: 10),
                 const Text(
                   'Descripciòn',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  style: TextStyle(color: Colors.black,fontSize: 18, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 2),
                 Container(
@@ -430,7 +430,7 @@ class NewTaskLogic extends GetxController {
                 const SizedBox(height: 10),
                 const Text(
                   'Grado',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  style: TextStyle(color: Colors.black,fontSize: 18, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 2),
                 Container(
@@ -446,7 +446,7 @@ class NewTaskLogic extends GetxController {
                 const SizedBox(height: 10),
                 const Text(
                   'Fecha de creación',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  style: TextStyle(color: Colors.black,fontSize: 18, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 2),
                 Container(
@@ -463,7 +463,7 @@ class NewTaskLogic extends GetxController {
                 const SizedBox(height: 10),
                 const Text(
                   'Fecha de entrega',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  style: TextStyle(color: Colors.black,fontSize: 18, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 2),
                 Container(

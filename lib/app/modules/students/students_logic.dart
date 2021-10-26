@@ -232,11 +232,11 @@ class StudentsLogic extends GetxController {
     }
   }*/
 
-  /*@override
+  @override
   void onReady() {
-    searchCtrl.text = 'MAMANI MONZON ALDAIR BRANDON';
+    searchCtrl.text = 'ROSAS BACA EMILIE MICHELLE';
     super.onReady();
-  }*/
+  }
 
   void search() async {
     _student = await _dataRepository.getStusN(

@@ -29,7 +29,7 @@ class StudentsPage extends StatelessWidget {
                 onPressed: logic.createStudent, child: const Text('create')),*/
             const Text(
               'Buscar estudiante',
-              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+              style: TextStyle(color: Colors.black,fontSize: 22, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 5),
             TextField(
@@ -65,17 +65,19 @@ class StudentsPage extends StatelessWidget {
                                       text: TextSpan(children: [
                                     const TextSpan(
                                         text: 'Estudiante: ',
-                                        style: TextStyle(
+                                        style: TextStyle(color: Colors.black,
                                             fontWeight: FontWeight.bold)),
-                                    TextSpan(text: student.data['name'])
+                                    TextSpan(text: student.data['name'],
+                                        style: const TextStyle(color: Colors.black))
                                   ])),
                                   subtitle: RichText(
                                       text: TextSpan(children: [
                                     const TextSpan(
                                         text: 'Grado: ',
-                                        style: TextStyle(
+                                        style: TextStyle(color: Colors.black,
                                             fontWeight: FontWeight.bold)),
-                                    TextSpan(text: student.data['grade'])
+                                    TextSpan(text: student.data['grade'],
+                                        style: const TextStyle(color: Colors.black))
                                   ]))),
                               const SizedBox(height: 10),
                               Expanded(
@@ -108,7 +110,7 @@ class StudentsPage extends StatelessWidget {
                                                             BoxShape.circle)),
                                               ),
                                               const Text('Asistencias',
-                                                  style: TextStyle(
+                                                  style: TextStyle(color: Colors.black,
                                                       fontSize: 14,
                                                       fontWeight:
                                                           FontWeight.bold),
@@ -118,7 +120,7 @@ class StudentsPage extends StatelessWidget {
                                                       TextOverflow.ellipsis),
                                               const Text('Ver asistencias',
                                                   style:
-                                                      TextStyle(fontSize: 12),
+                                                      TextStyle(color: Colors.black,fontSize: 12),
                                                   textAlign: TextAlign.center,
                                                   maxLines: 2,
                                                   overflow:
@@ -144,7 +146,7 @@ class StudentsPage extends StatelessWidget {
                                                             BoxShape.circle)),
                                               ),
                                               const Text('Tareas',
-                                                  style: TextStyle(
+                                                  style: TextStyle(color: Colors.black,
                                                       fontSize: 14,
                                                       fontWeight:
                                                           FontWeight.bold),
@@ -154,7 +156,7 @@ class StudentsPage extends StatelessWidget {
                                                       TextOverflow.ellipsis),
                                               const Text('Ver notas de tareas',
                                                   style:
-                                                      TextStyle(fontSize: 12),
+                                                      TextStyle(color: Colors.black,fontSize: 12),
                                                   textAlign: TextAlign.center,
                                                   maxLines: 2,
                                                   overflow:
@@ -180,7 +182,7 @@ class StudentsPage extends StatelessWidget {
                                                             BoxShape.circle)),
                                               ),
                                               const Text('Calificaciones',
-                                                  style: TextStyle(
+                                                  style: TextStyle(color: Colors.black,
                                                       fontSize: 14,
                                                       fontWeight:
                                                           FontWeight.bold),
@@ -191,7 +193,7 @@ class StudentsPage extends StatelessWidget {
                                               const Text(
                                                   'Ver notas de examenes',
                                                   style:
-                                                      TextStyle(fontSize: 12),
+                                                      TextStyle(color: Colors.black,fontSize: 12),
                                                   textAlign: TextAlign.center,
                                                   maxLines: 2,
                                                   overflow:

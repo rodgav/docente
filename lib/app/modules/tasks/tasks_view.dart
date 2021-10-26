@@ -34,14 +34,17 @@ class TasksPage extends StatelessWidget {
                               ? student.data['name']
                               : 'Estudiante no encontrado',
                           style: const TextStyle(
-                              fontSize: 24, fontWeight: FontWeight.bold)),
+                              color: Colors.black,
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold)),
                     ),
                     Center(
                       child: Text(
                           student != null
                               ? student.data['grade']
                               : 'Estudiante no encontrado',
-                          style: const TextStyle(fontSize: 20)),
+                          style: const TextStyle(
+                              color: Colors.black, fontSize: 20)),
                     ),
                   ],
                 );
@@ -51,69 +54,71 @@ class TasksPage extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: Text(
                 'Tareas',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold),
               )),
           const SizedBox(height: 5),
-           GetBuilder<TasksLogic>(
-                  id: 'tasks',
-                  builder: (_) {
-                    final tasks = _.tasks;
-                    final selectedTask = _.selectedTask;
-                    return SizedBox(
-                      height: 40,
-                      child: tasks != null
-                          ? ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              physics: const BouncingScrollPhysics(),
-                              itemBuilder: (__, index) {
-                                final data = tasks.documents[index];
-                                final date = DateTime.parse(data.data['date']);
-                                final dayWeek =
-                                    DateFormat('EEEE', 'es_ES').format(date);
-                                final day =
-                                    DateFormat('d', 'es_ES').format(date);
-                                final month =
-                                    DateFormat('MMMM', 'es_ES').format(date);
-                                return MouseRegion(
-                                  cursor: SystemMouseCursors.click,
-                                  child: GestureDetector(
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                          color: selectedTask ==
-                                                  '$dayWeek $day del $month'
-                                              ? Colors.blue
-                                              : Colors.white,
-                                          borderRadius:
-                                              BorderRadius.circular(20),
-                                          border:
-                                              Border.all(color: Colors.blue)),
-                                      margin: const EdgeInsets.only(left: 20),
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 10),
-                                      child: Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: Text(
-                                              '$dayWeek $day del $month',
-                                              style: TextStyle(
-                                                  color: selectedTask ==
-                                                          '$dayWeek $day del $month'
-                                                      ? Colors.white
-                                                      : Colors.blue))),
-                                    ),
-                                    onTap: () => logic.selectTask(data),
-                                  ),
-                                );
-                              },
-                              itemCount: tasks.documents.length)
-                          : const Text('Tareas no encontradas'),
-                    );
-                  }),
+          GetBuilder<TasksLogic>(
+              id: 'tasks',
+              builder: (_) {
+                final tasks = _.tasks;
+                final selectedTask = _.selectedTask;
+                return SizedBox(
+                  height: 40,
+                  child: tasks != null
+                      ? ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          physics: const BouncingScrollPhysics(),
+                          itemBuilder: (__, index) {
+                            final data = tasks.documents[index];
+                            final date = DateTime.parse(data.data['date']);
+                            final dayWeek =
+                                DateFormat('EEEE', 'es_ES').format(date);
+                            final day = DateFormat('d', 'es_ES').format(date);
+                            final month =
+                                DateFormat('MMMM', 'es_ES').format(date);
+                            return MouseRegion(
+                              cursor: SystemMouseCursors.click,
+                              child: GestureDetector(
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      color: selectedTask ==
+                                              '$dayWeek $day del $month'
+                                          ? Colors.blue
+                                          : Colors.white,
+                                      borderRadius: BorderRadius.circular(20),
+                                      border: Border.all(color: Colors.blue)),
+                                  margin: const EdgeInsets.only(left: 20),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 10),
+                                  child: Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: Text('$dayWeek $day del $month',
+                                          style: TextStyle(
+                                              color: selectedTask ==
+                                                      '$dayWeek $day del $month'
+                                                  ? Colors.white
+                                                  : Colors.blue))),
+                                ),
+                                onTap: () => _.selectTask(data),
+                              ),
+                            );
+                          },
+                          itemCount: tasks.documents.length)
+                      : const Text('Tareas no encontradas'),
+                );
+              }),
           const Divider(),
           const Padding(
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: Text(
                 'Detalles',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold),
               )),
           const SizedBox(height: 5),
           Padding(
@@ -140,40 +145,50 @@ class TasksPage extends StatelessWidget {
                                 text: TextSpan(children: [
                               const TextSpan(
                                   text: 'Título: ',
-                                  style:
-                                      TextStyle(fontWeight: FontWeight.bold)),
-                              TextSpan(text: task.data['title']),
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold)),
+                              TextSpan(text: task.data['title'],
+                                  style: const TextStyle(color: Colors.black)),
                             ])),
                             RichText(
                                 text: TextSpan(children: [
                               const TextSpan(
                                   text: 'Descripción: ',
-                                  style:
-                                      TextStyle(fontWeight: FontWeight.bold)),
-                              TextSpan(text: task.data['description']),
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold)),
+                              TextSpan(
+                                  text: task.data['description'],
+                                  style: const TextStyle(color: Colors.black)),
                             ])),
                             RichText(
                                 text: TextSpan(children: [
                               const TextSpan(
                                   text: 'Fecha de creación: ',
-                                  style:
-                                      TextStyle(fontWeight: FontWeight.bold)),
-                              TextSpan(text: '$dayWeek $day del $month'),
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold)),
+                              TextSpan(text: '$dayWeek $day del $month',
+                                  style: const TextStyle(color: Colors.black)),
                             ])),
                             RichText(
                                 text: TextSpan(children: [
                               const TextSpan(
                                   text: 'Fecha de presentación: ',
-                                  style:
-                                      TextStyle(fontWeight: FontWeight.bold)),
-                              TextSpan(text: '$dayWeekE $dayE del $monthE'),
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold)),
+                              TextSpan(text: '$dayWeekE $dayE del $monthE',
+                                  style: const TextStyle(color: Colors.black)),
                             ])),
                             RichText(
                                 text: TextSpan(children: [
                               const TextSpan(
                                   text: 'PDF: ',
-                                  style:
-                                      TextStyle(fontWeight: FontWeight.bold)),
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold)),
                               TextSpan(
                                   mouseCursor: SystemMouseCursors.click,
                                   text: 'aqui',
@@ -181,7 +196,7 @@ class TasksPage extends StatelessWidget {
                                       color: Colors.blue,
                                       decoration: TextDecoration.underline),
                                   recognizer: TapGestureRecognizer()
-                                    ..onTap = () => logic.launchPDF(
+                                    ..onTap = () => _.launchPDF(
                                         task.data['pdfURL'].toString())),
                             ])),
                           ]);
@@ -194,7 +209,10 @@ class TasksPage extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: Text(
                 'Nota',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold),
               )),
           const SizedBox(height: 5),
           Padding(
@@ -216,27 +234,33 @@ class TasksPage extends StatelessWidget {
                                 text: TextSpan(children: [
                               const TextSpan(
                                   text: 'Criterio: ',
-                                  style:
-                                      TextStyle(fontWeight: FontWeight.bold)),
-                              TextSpan(text: taskStd.data['description']),
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold)),
+                              TextSpan(text: taskStd.data['description'],
+                                  style: const TextStyle(color: Colors.black)),
                             ])),
                             RichText(
                                 text: TextSpan(children: [
                               const TextSpan(
                                   text: 'Nota: ',
-                                  style:
-                                      TextStyle(fontWeight: FontWeight.bold)),
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold)),
                               TextSpan(
                                   text:
-                                      taskStd.data['qualification'].toString()),
+                                      taskStd.data['qualification'].toString(),
+                                  style: const TextStyle(color: Colors.black)),
                             ])),
                             RichText(
                                 text: TextSpan(children: [
                               const TextSpan(
                                   text: 'Fecha de entrega: ',
-                                  style:
-                                      TextStyle(fontWeight: FontWeight.bold)),
-                              TextSpan(text: '$dayWeek $day del $month'),
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold)),
+                              TextSpan(text: '$dayWeek $day del $month',
+                                  style: const TextStyle(color: Colors.black)),
                             ])),
                           ]);
                     } else {

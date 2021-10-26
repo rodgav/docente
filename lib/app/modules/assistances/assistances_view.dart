@@ -24,13 +24,13 @@ class AssistancesPage extends StatelessWidget {
                         student != null
                             ? student.data['name']
                             : 'Estudiante no encontrado',
-                        style: const TextStyle(
+                        style: const TextStyle(color: Colors.black,
                             fontSize: 24, fontWeight: FontWeight.bold)),
                     Text(
                         student != null
                             ? student.data['grade']
                             : 'Estudiante no encontrado',
-                        style: const TextStyle(fontSize: 20)),
+                        style: const TextStyle(color: Colors.black,fontSize: 20)),
                   ],
                 );
               }),

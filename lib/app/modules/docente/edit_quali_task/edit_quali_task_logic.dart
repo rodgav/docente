@@ -104,7 +104,7 @@ class EditQualiTaskLogic extends GetxController {
                       const Center(
                         child: Text(
                           'Editar Calificación',
-                          style: TextStyle(
+                          style: TextStyle(color: Colors.black,
                               fontSize: 24, fontWeight: FontWeight.bold),
                         ),
                       ),
@@ -126,13 +126,13 @@ class EditQualiTaskLogic extends GetxController {
                       text: TextSpan(children: [
                     const TextSpan(
                         text: 'Estudiante: ',
-                        style: TextStyle(fontWeight: FontWeight.bold)),
+                        style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold)),
                     TextSpan(text: document.data['name']),
                   ])),
                   const SizedBox(height: 20),
                   const Text(
                     'Nota',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    style: TextStyle(color: Colors.black,fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 2),
                   TextFormField(
@@ -154,7 +154,7 @@ class EditQualiTaskLogic extends GetxController {
                   const SizedBox(height: 10),
                   const Text(
                     'Descripciòn',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    style: TextStyle(color: Colors.black,fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 2),
                   TextFormField(

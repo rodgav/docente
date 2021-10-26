@@ -16,15 +16,15 @@ class NewAssistancePage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [ const Center(
           child: Text('Llamando lista',
-              style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold)),
+              style: TextStyle(color: Colors.black,fontSize: 40, fontWeight: FontWeight.bold)),
         ),
           const SizedBox(height: 20),
           const Center(
             child: Text('RODOLFO SAMUEL GAVILAN MUÑOZ',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+                style: TextStyle(color: Colors.black,fontSize: 24, fontWeight: FontWeight.bold)),
           ),
           const Center(
-              child: Text('docente - Computación', style: TextStyle())),
+              child: Text('docente - Computación', style: TextStyle(color: Colors.black,))),
           const Divider(),
           const Padding(
               padding: EdgeInsets.symmetric(horizontal: 20),

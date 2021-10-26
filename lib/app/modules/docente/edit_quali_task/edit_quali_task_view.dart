@@ -18,20 +18,20 @@ class EditQualiTaskPage extends StatelessWidget {
         children: [
           const Center(
             child: Text('Editar notas de tareas',
-                style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold)),
+                style: TextStyle(color: Colors.black,fontSize: 40, fontWeight: FontWeight.bold)),
           ),
           const SizedBox(height: 20),
           const Center(
             child: Text('RODOLFO SAMUEL GAVILAN MUÑOZ',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+                style: TextStyle(color: Colors.black,fontSize: 24, fontWeight: FontWeight.bold)),
           ),
           const Center(
-              child: Text('docente - Computación', style: TextStyle())),
+              child: Text('docente - Computación', style: TextStyle(color: Colors.black,))),
           const Divider(),
           const Padding(
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: Text('Grados',
-                  style: TextStyle(fontWeight: FontWeight.bold))),
+                  style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold))),
           const SizedBox(height: 5),
           GetBuilder<EditQualiTaskLogic>(
               id: 'grade',
@@ -75,7 +75,7 @@ class EditQualiTaskPage extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: Text(
                 'Editar notas de tareas',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style: TextStyle(color: Colors.black,fontSize: 18, fontWeight: FontWeight.bold),
               )),
           const SizedBox(height: 5),
           GetBuilder<EditQualiTaskLogic>(
@@ -133,7 +133,7 @@ class EditQualiTaskPage extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: Text(
                 'Detalles',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style: TextStyle(color: Colors.black,fontSize: 18, fontWeight: FontWeight.bold),
               )),
           const SizedBox(height: 5),
           Padding(
@@ -161,39 +161,43 @@ class EditQualiTaskPage extends StatelessWidget {
                               const TextSpan(
                                   text: 'Título: ',
                                   style:
-                                      TextStyle(fontWeight: FontWeight.bold)),
-                              TextSpan(text: task.data['title']),
+                                      TextStyle(color: Colors.black,fontWeight: FontWeight.bold)),
+                              TextSpan(text: task.data['title'],
+                                  style: const TextStyle(color: Colors.black)),
                             ])),
                             RichText(
                                 text: TextSpan(children: [
                               const TextSpan(
                                   text: 'Descripción: ',
                                   style:
-                                      TextStyle(fontWeight: FontWeight.bold)),
-                              TextSpan(text: task.data['description']),
+                                      TextStyle(color: Colors.black,fontWeight: FontWeight.bold)),
+                              TextSpan(text: task.data['description'],
+                                  style: const TextStyle(color: Colors.black)),
                             ])),
                             RichText(
                                 text: TextSpan(children: [
                               const TextSpan(
                                   text: 'Fecha de creación: ',
                                   style:
-                                      TextStyle(fontWeight: FontWeight.bold)),
-                              TextSpan(text: '$dayWeek $day del $month'),
+                                      TextStyle(color: Colors.black,fontWeight: FontWeight.bold)),
+                              TextSpan(text: '$dayWeek $day del $month',
+                                  style: const TextStyle(color: Colors.black)),
                             ])),
                             RichText(
                                 text: TextSpan(children: [
                               const TextSpan(
                                   text: 'Fecha de presentación: ',
                                   style:
-                                      TextStyle(fontWeight: FontWeight.bold)),
-                              TextSpan(text: '$dayWeekE $dayE del $monthE'),
+                                      TextStyle(color: Colors.black,fontWeight: FontWeight.bold)),
+                              TextSpan(text: '$dayWeekE $dayE del $monthE',
+                                  style: const TextStyle(color: Colors.black)),
                             ])),
                             RichText(
                                 text: TextSpan(children: [
                               const TextSpan(
                                   text: 'PDF: ',
                                   style:
-                                      TextStyle(fontWeight: FontWeight.bold)),
+                                      TextStyle(color: Colors.black,fontWeight: FontWeight.bold)),
                               TextSpan(
                                   mouseCursor: SystemMouseCursors.click,
                                   text: 'aqui',
@@ -214,7 +218,7 @@ class EditQualiTaskPage extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: Text(
                 'Notas',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style: TextStyle(color: Colors.black,fontSize: 18, fontWeight: FontWeight.bold),
               )),
           const SizedBox(height: 5),
           Expanded(
