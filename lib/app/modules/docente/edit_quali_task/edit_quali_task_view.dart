@@ -159,7 +159,6 @@ class EditQualiTaskPage extends StatelessWidget {
                   builder: (_) {
                     final task = _.task;
                     if (task != null) {
-                      if (task.data.isNotEmpty) {
                         final date = DateTime.parse(task.data['date']);
                         final dayWeek =
                             DateFormat('EEEE', 'es_ES').format(date);
@@ -241,11 +240,8 @@ class EditQualiTaskPage extends StatelessWidget {
                                           task.data['pdfURL'].toString())),
                               ])),
                             ]);
-                      } else {
-                        return const Text('Datos de la tarea no encontrados');
-                      }
                     } else {
-                      return const CircularProgressIndicator();
+                      return const Text('Datos de la tarea no encontrados');
                     }
                   })),
           const Divider(),
