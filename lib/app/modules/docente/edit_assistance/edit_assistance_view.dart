@@ -16,12 +16,18 @@ class EditAssistancePage extends StatelessWidget {
         children: [
           const Center(
             child: Text('Editar lista',
-                style: TextStyle(color: Colors.black,fontSize: 40, fontWeight: FontWeight.bold)),
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 40,
+                    fontWeight: FontWeight.bold)),
           ),
           const SizedBox(height: 20),
           const Center(
             child: Text('RODOLFO SAMUEL GAVILAN MUÑOZ',
-                style: TextStyle(color: Colors.black,fontSize: 24, fontWeight: FontWeight.bold)),
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold)),
           ),
           const Center(
               child: Text('docente - Computación', style: TextStyle())),
@@ -29,7 +35,8 @@ class EditAssistancePage extends StatelessWidget {
           const Padding(
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: Text('Grados',
-                  style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold))),
+                  style: TextStyle(
+                      color: Colors.black, fontWeight: FontWeight.bold))),
           const SizedBox(height: 5),
           GetBuilder<EditAssistanceLogic>(
               id: 'grade',
@@ -72,7 +79,8 @@ class EditAssistancePage extends StatelessWidget {
           const Padding(
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: Text('Estudiantes',
-                  style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold))),
+                  style: TextStyle(
+                      color: Colors.black, fontWeight: FontWeight.bold))),
           const SizedBox(height: 5),
           GetBuilder<EditAssistanceLogic>(
               id: 'assistances',
@@ -81,6 +89,8 @@ class EditAssistancePage extends StatelessWidget {
                 return Expanded(
                   child: assistances != null
                       ? ListView.separated(
+                          physics: const BouncingScrollPhysics(),
+                          controller: _.scrollController,
                           itemBuilder: (__, index) {
                             final assitance = assistances.documents[index];
                             return ListTile(
@@ -96,11 +106,13 @@ class EditAssistancePage extends StatelessWidget {
                               title: Text(assitance.data['name']),
                               subtitle: Text(assitance.data['date']),
                               trailing: PopupMenuButton(
-                                  itemBuilder: (__) => [
-                                        PopupMenuItem(
-                                            child: const Text('Justificar'),
-                                            value: assitance)
-                                      ],onSelected: _.justify,),
+                                itemBuilder: (__) => [
+                                  PopupMenuItem(
+                                      child: const Text('Justificar'),
+                                      value: assitance)
+                                ],
+                                onSelected: _.justify,
+                              ),
                             );
                           },
                           separatorBuilder: (_, index) => const Divider(),

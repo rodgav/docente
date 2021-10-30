@@ -254,13 +254,17 @@ class DataProvider {
   }
 
   Future<DocumentList?> getTasksStudent(
-      {required String grade, required String idTask}) async {
+      {required String grade,
+      required String idTask,
+      required int index,
+      required int limit}) async {
     try {
       final database = Database(_client);
       final result = await database.listDocuments(
           collectionId: '617452e1bfdc0',
           filters: ['grade=$grade', 'idTask=$idTask'],
-          limit: 1,
+          offset: index,
+          limit: limit,
           orderField: 'date',
           orderCast: 'datetime',
           orderType: 'DESC');
@@ -283,11 +287,14 @@ class DataProvider {
     }
   }
 
-  Future<DocumentList?> getAssistances({required String grade}) async {
+  Future<DocumentList?> getAssistances(
+      {required String grade, required int index, required int limit}) async {
     final database = Database(_client);
     final result = await database.listDocuments(
         collectionId: '616cc4d112dc3',
         filters: ['grade=$grade'],
+        offset: index,
+        limit: limit,
         orderField: 'date',
         orderCast: 'datetime',
         orderType: 'DESC');

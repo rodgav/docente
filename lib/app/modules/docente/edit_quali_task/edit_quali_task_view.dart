@@ -18,20 +18,30 @@ class EditQualiTaskPage extends StatelessWidget {
         children: [
           const Center(
             child: Text('Editar notas de tareas',
-                style: TextStyle(color: Colors.black,fontSize: 40, fontWeight: FontWeight.bold)),
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 40,
+                    fontWeight: FontWeight.bold)),
           ),
           const SizedBox(height: 20),
           const Center(
             child: Text('RODOLFO SAMUEL GAVILAN MUÑOZ',
-                style: TextStyle(color: Colors.black,fontSize: 24, fontWeight: FontWeight.bold)),
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold)),
           ),
           const Center(
-              child: Text('docente - Computación', style: TextStyle(color: Colors.black,))),
+              child: Text('docente - Computación',
+                  style: TextStyle(
+                    color: Colors.black,
+                  ))),
           const Divider(),
           const Padding(
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: Text('Grados',
-                  style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold))),
+                  style: TextStyle(
+                      color: Colors.black, fontWeight: FontWeight.bold))),
           const SizedBox(height: 5),
           GetBuilder<EditQualiTaskLogic>(
               id: 'grade',
@@ -75,7 +85,10 @@ class EditQualiTaskPage extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: Text(
                 'Editar notas de tareas',
-                style: TextStyle(color: Colors.black,fontSize: 18, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold),
               )),
           const SizedBox(height: 5),
           GetBuilder<EditQualiTaskLogic>(
@@ -133,7 +146,10 @@ class EditQualiTaskPage extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: Text(
                 'Detalles',
-                style: TextStyle(color: Colors.black,fontSize: 18, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold),
               )),
           const SizedBox(height: 5),
           Padding(
@@ -143,74 +159,93 @@ class EditQualiTaskPage extends StatelessWidget {
                   builder: (_) {
                     final task = _.task;
                     if (task != null) {
-                      final date = DateTime.parse(task.data['date']);
-                      final dayWeek = DateFormat('EEEE', 'es_ES').format(date);
-                      final day = DateFormat('d', 'es_ES').format(date);
-                      final month = DateFormat('MMMM', 'es_ES').format(date);
-                      final dateE = DateTime.parse(task.data['dateEnd']);
-                      final dayWeekE =
-                          DateFormat('EEEE', 'es_ES').format(dateE);
-                      final dayE = DateFormat('d', 'es_ES').format(dateE);
-                      final monthE = DateFormat('MMMM', 'es_ES').format(dateE);
-                      return Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            RichText(
-                                text: TextSpan(children: [
-                              const TextSpan(
-                                  text: 'Título: ',
-                                  style:
-                                      TextStyle(color: Colors.black,fontWeight: FontWeight.bold)),
-                              TextSpan(text: task.data['title'],
-                                  style: const TextStyle(color: Colors.black)),
-                            ])),
-                            RichText(
-                                text: TextSpan(children: [
-                              const TextSpan(
-                                  text: 'Descripción: ',
-                                  style:
-                                      TextStyle(color: Colors.black,fontWeight: FontWeight.bold)),
-                              TextSpan(text: task.data['description'],
-                                  style: const TextStyle(color: Colors.black)),
-                            ])),
-                            RichText(
-                                text: TextSpan(children: [
-                              const TextSpan(
-                                  text: 'Fecha de creación: ',
-                                  style:
-                                      TextStyle(color: Colors.black,fontWeight: FontWeight.bold)),
-                              TextSpan(text: '$dayWeek $day del $month',
-                                  style: const TextStyle(color: Colors.black)),
-                            ])),
-                            RichText(
-                                text: TextSpan(children: [
-                              const TextSpan(
-                                  text: 'Fecha de presentación: ',
-                                  style:
-                                      TextStyle(color: Colors.black,fontWeight: FontWeight.bold)),
-                              TextSpan(text: '$dayWeekE $dayE del $monthE',
-                                  style: const TextStyle(color: Colors.black)),
-                            ])),
-                            RichText(
-                                text: TextSpan(children: [
-                              const TextSpan(
-                                  text: 'PDF: ',
-                                  style:
-                                      TextStyle(color: Colors.black,fontWeight: FontWeight.bold)),
-                              TextSpan(
-                                  mouseCursor: SystemMouseCursors.click,
-                                  text: 'aqui',
-                                  style: const TextStyle(
-                                      color: Colors.blue,
-                                      decoration: TextDecoration.underline),
-                                  recognizer: TapGestureRecognizer()
-                                    ..onTap = () => logic.launchPDF(
-                                        task.data['pdfURL'].toString())),
-                            ])),
-                          ]);
+                      if (task.data.isNotEmpty) {
+                        final date = DateTime.parse(task.data['date']);
+                        final dayWeek =
+                            DateFormat('EEEE', 'es_ES').format(date);
+                        final day = DateFormat('d', 'es_ES').format(date);
+                        final month = DateFormat('MMMM', 'es_ES').format(date);
+                        final dateE = DateTime.parse(task.data['dateEnd']);
+                        final dayWeekE =
+                            DateFormat('EEEE', 'es_ES').format(dateE);
+                        final dayE = DateFormat('d', 'es_ES').format(dateE);
+                        final monthE =
+                            DateFormat('MMMM', 'es_ES').format(dateE);
+                        return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              RichText(
+                                  text: TextSpan(children: [
+                                const TextSpan(
+                                    text: 'Título: ',
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold)),
+                                TextSpan(
+                                    text: task.data['title'],
+                                    style:
+                                        const TextStyle(color: Colors.black)),
+                              ])),
+                              RichText(
+                                  text: TextSpan(children: [
+                                const TextSpan(
+                                    text: 'Descripción: ',
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold)),
+                                TextSpan(
+                                    text: task.data['description'],
+                                    style:
+                                        const TextStyle(color: Colors.black)),
+                              ])),
+                              RichText(
+                                  text: TextSpan(children: [
+                                const TextSpan(
+                                    text: 'Fecha de creación: ',
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold)),
+                                TextSpan(
+                                    text: '$dayWeek $day del $month',
+                                    style:
+                                        const TextStyle(color: Colors.black)),
+                              ])),
+                              RichText(
+                                  text: TextSpan(children: [
+                                const TextSpan(
+                                    text: 'Fecha de presentación: ',
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold)),
+                                TextSpan(
+                                    text: '$dayWeekE $dayE del $monthE',
+                                    style:
+                                        const TextStyle(color: Colors.black)),
+                              ])),
+                              RichText(
+                                  text: TextSpan(children: [
+                                const TextSpan(
+                                    text: 'PDF: ',
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold)),
+                                TextSpan(
+                                    mouseCursor: SystemMouseCursors.click,
+                                    text: 'aqui',
+                                    style: const TextStyle(
+                                        color: Colors.blue,
+                                        decoration: TextDecoration.underline),
+                                    recognizer: TapGestureRecognizer()
+                                      ..onTap = () => logic.launchPDF(
+                                          task.data['pdfURL'].toString())),
+                              ])),
+                            ]);
+                      } else {
+                        return const Text('Datos de la tarea no encontrados');
+                      }
                     } else {
-                      return const Text('Datos de la tarea no encontrados');
+                      return const CircularProgressIndicator();
                     }
                   })),
           const Divider(),
@@ -218,7 +253,10 @@ class EditQualiTaskPage extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: Text(
                 'Notas',
-                style: TextStyle(color: Colors.black,fontSize: 18, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold),
               )),
           const SizedBox(height: 5),
           Expanded(
@@ -226,45 +264,50 @@ class EditQualiTaskPage extends StatelessWidget {
                 id: 'taskStds',
                 builder: (_) {
                   final taskStds = _.taskStds;
-                  if (taskStds != null) {
-                    return ListView.separated(
-                        itemBuilder: (__, index) {
-                          final taskStd = taskStds.documents[index];
-                          final date = DateTime.parse(taskStd.data['date']);
-                          final dayWeek =
-                              DateFormat('EEEE', 'es_ES').format(date);
-                          final day = DateFormat('d', 'es_ES').format(date);
-                          final month =
-                              DateFormat('MMMM', 'es_ES').format(date);
-                          final qual = int.parse(
-                              taskStd.data['qualification'].toString());
-                          return ListTile(
-                            leading: CircleAvatar(
-                              backgroundColor:
-                                  qual >= 11 ? Colors.blue : Colors.red,
-                              child: Text(
-                                qual.toString(),
-                                style: const TextStyle(color: Colors.white),
-                              ),
-                            ),
-                            title: Text(taskStd.data['name'].toString()),
-                            subtitle: Text('$dayWeek $day del $month'),
-                            trailing: PopupMenuButton(
-                              itemBuilder: (__) => [
-                                PopupMenuItem(
-                                  child: const Text('Editar'),
-                                  value: taskStd,
-                                )
-                              ],
-                              onSelected: _.edit,
-                            ),
-                          );
-                        },
-                        separatorBuilder: (__, index) => const Divider(),
-                        itemCount: taskStds.documents.length);
-                  } else {
-                    return const Text('Notas de tareas no encontradas');
-                  }
+
+                  return taskStds != null
+                      ? taskStds.documents.isNotEmpty
+                          ? ListView.separated(
+                              itemBuilder: (__, index) {
+                                final taskStd = taskStds.documents[index];
+                                final date =
+                                    DateTime.parse(taskStd.data['date']);
+                                final dayWeek =
+                                    DateFormat('EEEE', 'es_ES').format(date);
+                                final day =
+                                    DateFormat('d', 'es_ES').format(date);
+                                final month =
+                                    DateFormat('MMMM', 'es_ES').format(date);
+                                final qual = int.parse(
+                                    taskStd.data['qualification'].toString());
+                                return ListTile(
+                                  leading: CircleAvatar(
+                                    backgroundColor:
+                                        qual >= 11 ? Colors.blue : Colors.red,
+                                    child: Text(
+                                      qual.toString(),
+                                      style:
+                                          const TextStyle(color: Colors.white),
+                                    ),
+                                  ),
+                                  title: Text(taskStd.data['name'].toString()),
+                                  subtitle: Text('$dayWeek $day del $month'),
+                                  trailing: PopupMenuButton(
+                                    itemBuilder: (__) => [
+                                      PopupMenuItem(
+                                        child: const Text('Editar'),
+                                        value: taskStd,
+                                      )
+                                    ],
+                                    onSelected: _.edit,
+                                  ),
+                                );
+                              },
+                              separatorBuilder: (__, index) => const Divider(),
+                              itemCount: taskStds.documents.length)
+                          : const Center(
+                              child: Text('Notas de tareas no encontradas'))
+                      : const Center(child: CircularProgressIndicator());
                 }),
           ),
         ],

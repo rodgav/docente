@@ -1,4 +1,5 @@
 import 'package:appwrite/models.dart';
+import 'package:docente/app/data/models/document_list_app.dart';
 import 'package:docente/app/data/repositorys/data_repository.dart';
 import 'package:docente/app/data/services/dialog_service.dart';
 import 'package:flutter/material.dart';
@@ -7,22 +8,78 @@ import 'package:get/get.dart';
 class EditAssistanceLogic extends GetxController {
   final _dataRepository = Get.find<DataRepository>();
   final grades = ['6to B', '6to A', '5to', '4to', '3ero', '2do', '1ero'];
+  final scrollController = ScrollController();
   String? _selectGrade;
-  DocumentList? _assistances;
+  DocumentListApp? _assistances;
+  int _index = 0;
+  final int _limit = 25;
 
   String? get selectGrade => _selectGrade;
 
-  DocumentList? get assistances => _assistances;
+  DocumentListApp? get assistances => _assistances;
+
+  @override
+  void onReady() {
+    _setupScrollController();
+    super.onReady();
+  }
+
+  @override
+  void dispose() {
+    scrollController.dispose();
+    super.dispose();
+  }
 
   void gradeSelect(String grade) {
     _selectGrade = grade;
     update(['grade']);
-    _getAssistances();
+    _getAssistances(true);
   }
 
-  void _getAssistances() async {
-    _assistances = await _dataRepository.getAssistances(grade: selectGrade!);
+  void _getAssistances(bool reload) async {
+    if (reload) {
+      _assistances = DocumentListApp(sum: 0, documents: []);
+      _index = 0;
+    }
+    DocumentListApp oldAssistances;
+    DocumentListApp newAssistances;
+    if (assistances != null) {
+      oldAssistances = assistances!;
+    } else {
+      oldAssistances = DocumentListApp(sum: 0, documents: []);
+    }
+    if (oldAssistances.sum >= _index) {
+      final newAssis = await _dataRepository.getAssistances(
+          grade: selectGrade!, index: _index, limit: _limit);
+      if (newAssis != null) {
+        newAssistances =
+            DocumentListApp(sum: newAssis.sum, documents: newAssis.documents);
+      } else {
+        newAssistances = DocumentListApp(sum: 0, documents: []);
+      }
+      _index = _index + _limit + 1;
+    } else {
+      newAssistances = DocumentListApp(sum: 0, documents: []);
+    }
+    _assistances = oldAssistances;
+    _assistances!.sum = newAssistances.sum;
+    _assistances!.documents.addAll(newAssistances.documents);
     update(['assistances']);
+  }
+
+  void _setupScrollController() {
+    scrollController.addListener(() {
+      if (scrollController.offset >=
+              scrollController.position.maxScrollExtent &&
+          !scrollController.position.outOfRange) {
+        _getAssistances(false);
+      }
+      if (scrollController.offset <=
+              scrollController.position.minScrollExtent &&
+          !scrollController.position.outOfRange) {
+        _getAssistances(true);
+      }
+    });
   }
 
   void toBack() {

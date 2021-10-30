@@ -60,15 +60,20 @@ class DataRepository {
       _dataProvider.getTaskStudent(idStudent: idStudent, idTask: idTask);
 
   Future<DocumentList?> getTasksStudent(
-          {required String grade, required String idTask}) =>
-      _dataProvider.getTasksStudent(grade: grade, idTask: idTask);
+          {required String grade,
+          required String idTask,
+          required int index,
+          required int limit}) =>
+      _dataProvider.getTasksStudent(
+          grade: grade, idTask: idTask, index: index, limit: limit);
 
   Future<Document?> updaTasksStudent(
           {required String id, required Map<dynamic, dynamic> map}) =>
       _dataProvider.updaTasksStudent(id: id, map: map);
 
-  Future<DocumentList?> getAssistances({required String grade}) =>
-      _dataProvider.getAssistances(grade: grade);
+  Future<DocumentList?> getAssistances(
+          {required String grade, required int index, required int limit}) =>
+      _dataProvider.getAssistances(grade: grade, index: index, limit: limit);
 
   Future<Document?> justifyAssistance(
           {required String id, required Map<dynamic, dynamic> map}) =>
