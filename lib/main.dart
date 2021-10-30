@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:docente/app/data/services/auth_service.dart';
+import 'package:docente/app/data/services/dialog_service.dart';
 import 'package:docente/app/routes/app_pages.dart';
 import 'package:docente/utils/dependency_injection.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +26,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp.router(
       initialBinding: BindingsBuilder(() {
         Get.put(AuthService());
+        Get.put(DialogService());
       }),
       scrollBehavior: MyCustomScrollBehavior(),
       title: 'Docente',

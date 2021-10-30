@@ -159,7 +159,7 @@ class NewTaskPage extends StatelessWidget {
                             child: Text('Tareas no encontradas'),
                           ),
                   );
-                })
+                }),        const SizedBox(height: 10),
           ],
         ),
       ),

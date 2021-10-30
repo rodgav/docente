@@ -1,5 +1,6 @@
 import 'package:appwrite/models.dart';
 import 'package:docente/app/data/repositorys/data_repository.dart';
+import 'package:docente/app/data/services/dialog_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -39,7 +40,10 @@ class EditAssistanceLogic extends GetxController {
               const Center(
                 child: Text(
                   'Justificar asistencia',
-                  style: TextStyle(color: Colors.black,fontSize: 24, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold),
                 ),
               ),
               Positioned(
@@ -60,8 +64,10 @@ class EditAssistanceLogic extends GetxController {
               text: TextSpan(children: [
             const TextSpan(
                 text: 'Estudiante: ',
-                style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold)),
-            TextSpan(text: document.data['name'],
+                style: TextStyle(
+                    color: Colors.black, fontWeight: FontWeight.bold)),
+            TextSpan(
+                text: document.data['name'],
                 style: const TextStyle(color: Colors.black)),
           ])),
           const SizedBox(height: 20),
@@ -77,6 +83,7 @@ class EditAssistanceLogic extends GetxController {
   }
 
   void _justify(Document document) async {
+    DialogService.to.openDialog();
     final student =
         await _dataRepository.justifyAssistance(id: document.$id, map: {
       'idStudent': document.data['idStudent'],
@@ -85,6 +92,7 @@ class EditAssistanceLogic extends GetxController {
       'assistance': 'justificado',
       'date': DateTime.now().toString()
     });
+    DialogService.to.closeDialog();
     if (student != null) {
       _assistances!.documents
           .removeWhere((element) => element.$id == document.$id);

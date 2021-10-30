@@ -1,5 +1,6 @@
 import 'package:appwrite/models.dart';
 import 'package:docente/app/data/repositorys/data_repository.dart';
+import 'package:docente/app/data/services/dialog_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -191,6 +192,7 @@ class EditQualiTaskLogic extends GetxController {
 
   void _saveQuali(Document document) async {
     if (formKey.currentState!.validate()) {
+      DialogService.to.openDialog();
       final result =
           await _dataRepository.updaTasksStudent(id: document.$id, map: {
         'idStudent': document.data['idStudent'],
@@ -200,7 +202,7 @@ class EditQualiTaskLogic extends GetxController {
         'description': descCtrl.text,
         'qualification': qualCtrl.text,
         'date': DateTime.now().toString()
-      });
+      });DialogService.to.closeDialog();
       if (result != null) {
         descCtrl.clear();
         qualCtrl.clear();

@@ -1,5 +1,6 @@
 import 'package:docente/app/data/repositorys/data_repository.dart';
 import 'package:docente/app/data/services/auth_service.dart';
+import 'package:docente/app/data/services/dialog_service.dart';
 import 'package:docente/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -32,12 +33,13 @@ class LoginLogic extends GetxController {
   void login() async {
     if (formKey.currentState!.validate()) {
       if (!AuthService.to.isLoggedIn) {
+        DialogService.to.openDialog();
         final session = await _dataRepository.accountCreateSession(
-          //email: 'bankenro.myhope@gmail.com', password: '31en02fe24ma',
-            email: emailCtrl.text.trim(), password: passCtrl.text.trim()
-        );
+            //email: 'bankenro.myhope@gmail.com', password: '31en02fe24ma',
+            email: emailCtrl.text.trim(),
+            password: passCtrl.text.trim());
         if (session != null) {
-          await AuthService.to.login(session.userId,session.$id);
+          await AuthService.to.login(session.userId, session.$id);
           Get.rootDelegate.offNamed(Routes.home);
         }
       } else {
@@ -48,9 +50,10 @@ class LoginLogic extends GetxController {
 
   void loginA() async {
     if (!AuthService.to.isLoggedIn) {
+      DialogService.to.openDialog();
       final session = await _dataRepository.accountCreateAnonymous();
       if (session != null) {
-        await AuthService.to.login(session.userId,session.$id);
+        await AuthService.to.login(session.userId, session.$id);
         Get.rootDelegate.offNamed(Routes.home);
       }
     } else {

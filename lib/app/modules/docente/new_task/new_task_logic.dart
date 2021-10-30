@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:appwrite/models.dart';
 import 'package:docente/app/data/repositorys/data_repository.dart';
 import 'package:docente/app/data/services/auth_service.dart';
+import 'package:docente/app/data/services/dialog_service.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -19,11 +20,11 @@ class NewTaskLogic extends GetxController {
   final TextEditingController titleCtrl = TextEditingController();
   final TextEditingController descCtrl = TextEditingController();
   DocumentList? _tasks;
-  String _selectGrade='';
+  String? _selectGrade;
   Uint8List? _bytes;
   String _nameFile = '';
 
-  String get selectGrade => _selectGrade;
+  String? get selectGrade => _selectGrade;
 
   DocumentList? get tasks => _tasks;
 
@@ -82,6 +83,7 @@ class NewTaskLogic extends GetxController {
         if (AuthService.to.userId != null) {
           if (AuthService.to.userId == '616c934cf3ebb') {
             if (_bytes != null) {
+              DialogService.to.openDialog();
               final task = await _dataRepository.createTask(map: {
                 'title': titleCtrl.text,
                 'description': descCtrl.text,
@@ -91,6 +93,7 @@ class NewTaskLogic extends GetxController {
                     '${selectedDate.year}-${selectedDate.month}-${selectedDate.day} '
                         '${selectedHour.hour}:${selectedHour.minute.toString().length == 1 ? '0' + selectedHour.minute.toString() : selectedHour.minute.toString()}:00'
               }, uint8list: _bytes!, name: _nameFile);
+              DialogService.to.closeDialog();
               if (task != null) {
                 titleCtrl.clear();
                 descCtrl.clear();
