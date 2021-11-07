@@ -38,6 +38,7 @@ class LoginLogic extends GetxController {
             //email: 'bankenro.myhope@gmail.com', password: '31en02fe24ma',
             email: emailCtrl.text.trim(),
             password: passCtrl.text.trim());
+        DialogService.to.closeDialog();
         if (session != null) {
           await AuthService.to.login(session.userId, session.$id);
           Get.rootDelegate.offNamed(Routes.home);
@@ -52,6 +53,7 @@ class LoginLogic extends GetxController {
     if (!AuthService.to.isLoggedIn) {
       DialogService.to.openDialog();
       final session = await _dataRepository.accountCreateAnonymous();
+      DialogService.to.closeDialog();
       if (session != null) {
         await AuthService.to.login(session.userId, session.$id);
         Get.rootDelegate.offNamed(Routes.home);

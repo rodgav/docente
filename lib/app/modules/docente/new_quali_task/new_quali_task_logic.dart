@@ -116,8 +116,10 @@ class NewQualiTaskLogic extends GetxController {
                       const Center(
                         child: Text(
                           'Nueva Calificación',
-                          style: TextStyle(color: Colors.black,
-                              fontSize: 24, fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold),
                         ),
                       ),
                       Positioned(
@@ -138,13 +140,17 @@ class NewQualiTaskLogic extends GetxController {
                       text: TextSpan(children: [
                     const TextSpan(
                         text: 'Estudiante: ',
-                        style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold)),
+                        style: TextStyle(
+                            color: Colors.black, fontWeight: FontWeight.bold)),
                     TextSpan(text: student.data['name']),
                   ])),
                   const SizedBox(height: 20),
                   const Text(
                     'Nota',
-                    style: TextStyle(color: Colors.black,fontSize: 18, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 2),
                   TextFormField(
@@ -166,7 +172,10 @@ class NewQualiTaskLogic extends GetxController {
                   const SizedBox(height: 10),
                   const Text(
                     'Descripciòn',
-                    style: TextStyle(color: Colors.black,fontSize: 18, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 2),
                   TextFormField(
@@ -203,7 +212,8 @@ class NewQualiTaskLogic extends GetxController {
   }
 
   void createNewQual(String idStudent, String name) async {
-    if (formKey.currentState!.validate()) {DialogService.to.openDialog();
+    if (formKey.currentState!.validate()) {
+      DialogService.to.openDialog();
       final result = await _dataRepository.createTaskStudent(map: {
         'idStudent': idStudent,
         'idTask': task!.$id,
@@ -212,7 +222,8 @@ class NewQualiTaskLogic extends GetxController {
         'description': descCtrl.text,
         'qualification': qualCtrl.text,
         'date': DateTime.now().toString()
-      });DialogService.to.closeDialog();
+      });
+      DialogService.to.closeDialog();
       if (result != null) {
         descCtrl.clear();
         qualCtrl.clear();
